@@ -105,7 +105,6 @@ fun OrderButtonPreview1() {
                 placeId = 0,
                 itemsServed = 3,
                 price = 0.0,
-                status = Order.PAYMENT,
                 table = "TABLE 1",
                 workerId = 0
             ), workerId = 0, onTake = { /*TODO*/ }, onDetails = { /*TODO*/ },
@@ -125,7 +124,6 @@ fun OrderButtonPreview2() {
                 placeId = 0,
                 itemsServed = 3,
                 price = 0.0,
-                status = Order.WAITING,
                 table = "TABLE 1",
                 workerId = 0
             ), workerId = 0, onTake = { /*TODO*/ }, onDetails = { /*TODO*/ }, Modifier.fillMaxWidth())
@@ -141,7 +139,6 @@ fun OrderButtonPreview3() {
                 placeId = 0,
                 itemsServed = 3,
                 price = 0.0,
-                status = 0,
                 table = "TABLE 1",
                 workerId = null
             ), workerId = 0, onTake = { /*TODO*/ }, onDetails = { /*TODO*/ }, Modifier.fillMaxWidth())
@@ -156,7 +153,8 @@ fun ItemElementPreview() {
             id = 0,
             name = "Some item",
             note =  "No salt please",
-            served = 0
+            dateServed = getDate("2023-11-28 12:00:00"),
+            dateOrdered = getDate("2023-11-28 11:54:10")
         ), onServe = { /*TODO*/ })
     }
 }

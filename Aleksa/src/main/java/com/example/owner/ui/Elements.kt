@@ -35,6 +35,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -67,6 +68,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -77,6 +79,7 @@ import com.example.owner.models.Order
 import com.example.owner.models.OrderItem
 import com.example.owner.models.Worker
 import com.example.owner.ui.theme.LightBlue
+import com.example.owner.ui.theme.LightGreen
 import com.example.owner.ui.theme.OwnerTheme
 import java.lang.reflect.ReflectPermission
 
@@ -194,6 +197,8 @@ fun ItemButton(item: Item, onEdit: () -> Unit, modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .clickable { fullDescription = !fullDescription }
                     )
+                Icon(imageVector = Icons.Default.Star, contentDescription = "Loyalty points")
+                Text(text = "${item.loyaltyPoints} loyalty")
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = "$${item.price}")
                 Spacer(modifier = Modifier.width(5.dp))
@@ -255,28 +260,39 @@ fun LargeCenteredTextButton(text: String, onClick: () -> Unit, modifier: Modifie
 
 @Composable
 fun OrderButton(order: Order, workerId: Int, onTake: () -> Unit, onDetails: () -> Unit, modifier: Modifier = Modifier) {
-    val served = order.itemsServed
-    val total = order.getItems().size
     Column(
         modifier = if (order.workerId != workerId && order.workerId != null)
             modifier.background(color = Color.DarkGray)
             else modifier
     ) {
         Row {
-            Text(text = order.table, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(10.dp))
+            Text(text = order.table ?: "Takeout for '${order.username}'",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(10.dp),
+                textDecoration = TextDecoration.Underline)
             Spacer(modifier = Modifier.weight(1f))
             OrderStatusBar(status = order.status, modifier = Modifier.padding(5.dp))
         }
         Spacer(modifier = Modifier.height(10.dp))
+        Row(modifier = Modifier.padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(painter = painterResource(id = R.drawable.check), contentDescription = "Items served", modifier = Modifier.size(MaterialTheme.typography.bodyLarge.fontSize.value.dp))
+            Spacer(Modifier.width(5.dp))
+            Text("${order.itemsServed}/${order.totalItems}", style = MaterialTheme.typography.bodyMedium)
+        }
+        Row(modifier = Modifier.padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(painter = painterResource(id = R.drawable.clock), contentDescription = "Wait time", modifier = Modifier.size(MaterialTheme.typography.bodyLarge.fontSize.value.dp))
+            Spacer(Modifier.width(5.dp))
+            Text(order.waitTime, style = MaterialTheme.typography.bodyMedium)
+        }
         if (order.status == Order.PENDING) {
-            Text("Items: ${total}", modifier = Modifier.padding(10.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                OutlinedButton(onClick = { onTake() }, shape = MaterialTheme.shapes.small) {
-                    Text(text = "Take order", style = MaterialTheme.typography.bodyLarge)
+                OutlinedButton(onClick = { onTake() }, shape = MaterialTheme.shapes.small, colors = ButtonDefaults.buttonColors(
+                    containerColor = LightGreen
+                )) {
+                    Text(text = "Take order", style = MaterialTheme.typography.bodyLarge, color = Color.Black)
                 }
             }
         } else if (order.workerId == workerId) {
-            Text("Served ${served}/${total} items.", modifier = Modifier.padding(10.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 OutlinedButton(onClick = { onDetails() }, shape = MaterialTheme.shapes.small) {
                     Text("Details", style = MaterialTheme.typography.bodyLarge)
@@ -293,13 +309,20 @@ fun OrderItemElement(orderItem: OrderItem, onServe: () -> Unit, modifier: Modifi
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(5.dp).width(275.dp)) {
+        Column(modifier = Modifier
+            .padding(5.dp)
+            .width(275.dp)) {
             Text(text = orderItem.name, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(10.dp))
-            Text("Note: " + if (orderItem.note != null) orderItem.note else "None")
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(painter = painterResource(id = R.drawable.clock), contentDescription = "Wait time", Modifier.size(MaterialTheme.typography.bodyLarge.fontSize.value.dp))
+                Spacer(Modifier.size(10.dp))
+                Text(orderItem.waitTime, style = MaterialTheme.typography.bodyMedium)
+            }
+            Text("Note: " + if (orderItem.note != null) orderItem.note else "None", style = MaterialTheme.typography.bodyMedium)
         }
         Spacer(Modifier.weight(1f))
-        val enabled = orderItem.served == 0
+        val enabled = orderItem.served == false
         OutlinedButton(onClick = onServe, enabled = enabled, shape = MaterialTheme.shapes.small,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.inversePrimary, disabledContainerColor = Color.LightGray),
             modifier = Modifier.size(120.dp)) {

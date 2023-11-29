@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.owner.models.Order
 import com.example.owner.models.OrderItem
@@ -46,26 +47,26 @@ fun OrderItemsScreen(order: Order, onPay: () -> Unit, onServe: (OrderItem) -> Un
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         item {
-            Text(text = "Order for ${order.table}", style = MaterialTheme.typography.labelLarge)
+            Text(text = if (order.table == null) "Takeout for ${order.username}" else "Order for ${order.table}",
+                style = MaterialTheme.typography.labelLarge,
+                textDecoration = TextDecoration.Underline)
         }
         item {
             Text("Total price: $${order.price}", style = MaterialTheme.typography.bodyLarge)
         }
-        if (order.status == Order.PAYMENT) {
+        if (order.paymethod != null) {
             if (order.tip != null) {
                 item {
                     Text("Tip: $${order.price}")
                 }
             }
-            if (order.paymethod == Order.CASH) item { Text("Payment method: Cash") }
-            else {
-                item {
-                    Text("Payment method: Card")
-                }
-                item {
-                    OutlinedButton(onClick = onPay, shape = MaterialTheme.shapes.small) {
-                        Text("Proceed to payment", style = MaterialTheme.typography.labelMedium)
-                    }
+            val cash: Boolean = order.paymethod == Order.CASH
+            item {
+                Text("Payment method: ${if (cash) "Cash" else "Card"}")
+            }
+            item {
+                OutlinedButton(onClick = onPay, shape = MaterialTheme.shapes.small) {
+                    Text(if (cash) "Order paid" else "Proceed to payment", style = MaterialTheme.typography.labelMedium)
                 }
             }
         }
