@@ -1,14 +1,17 @@
 package com.example.mojkonobar.screens
 
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +26,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(modifier: Modifier = Modifier) {
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background){
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -78,4 +82,4 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
             Text(text = "Log in here", style = MaterialTheme.typography.labelLarge)
         }
     }
-}
+}}
