@@ -4,6 +4,7 @@ package com.example.posaplikacija.stateholders
 import android.os.Parcelable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.mojkonobar.classes.Place
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.parcelize.Parcelize
@@ -21,7 +22,12 @@ data class LoginState(
     var loginPassword: String = "123",
 
 
-
+    var places: List<Place> = listOf(
+        Place(1, "payten@gmail.com", "123", "", "Richard Gyros", "Najbolji giros! Odma pored masinskog fakulteta", 6),
+        Place(2, "rabat@gmail.com", "123", "", "Poncho", "Lepo mesto za studente da uzivaju i jedu :)", 107),
+        Place(3, "etf@gmail.com", "123", "", "KST", "Klub studenata tehnike - Dom svih studenata", 266),
+        Place(4, "bucko@gmail.com", "123", "", "Bucko", "Bucko pizza - najbolja i najfinija pizza u kraju. Svrati kad god.", 72),
+        )
 
 ) : Parcelable
 
