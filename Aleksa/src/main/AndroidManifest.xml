@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Owner"
+        tools:targetApi="31">
+        <receiver android:name=".PaytenReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="paytenreceive"></action>
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".StatisticsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_statistics"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".OrderItemsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_order_items"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".UpdateItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_update_item"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".AddItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".ItemsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_items"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".AddCategoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_category"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".WorkerStatisticsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_worker_statistics"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".AddWorkerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_worker"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".GetQRCodeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_get_qrcode"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".ManageWorkersActivity"
+            android:exported="false"
+            android:label="@string/title_activity_manage_workers"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".UpdateMenuActivity"
+            android:exported="false"
+            android:label="@string/title_activity_update_menu"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".UpdatePlaceActivity"
+            android:exported="false"
+            android:label="@string/title_activity_update_place"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".WorkerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_worker"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_admin"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".LoginWorkerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login_worker"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".LoginAdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login_admin"
+            android:theme="@style/Theme.Owner" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Owner">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

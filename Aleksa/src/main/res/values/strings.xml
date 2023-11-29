@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Owner</string>
+    <string name="title_activity_login_admin">LoginAdminActivity</string>
+    <string name="title_activity_login_worker">LoginWorkerActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_worker">WorkerActivity</string>
+    <string name="title_activity_update_place">UpdatePlaceActivity</string>
+    <string name="title_activity_update_menu">UpdateMenuActivity</string>
+    <string name="title_activity_manage_workers">ManageWorkersActivity</string>
+    <string name="title_activity_get_qrcode">GetQRCodeActivity</string>
+    <string name="title_activity_add_worker">AddWorkerActivity</string>
+    <string name="title_activity_worker_statistics">WorkerStatisticsActivity</string>
+    <string name="title_activity_add_category">AddCategoryActivity</string>
+    <string name="title_activity_items">ItemsActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="title_activity_update_item">UpdateItemActivity</string>
+    <string name="title_activity_order_items">OrderItemsActivity</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
+</resources>
