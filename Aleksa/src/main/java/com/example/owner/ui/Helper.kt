@@ -132,3 +132,7 @@ fun getPaytenRequestJson(base: Double, tip: Double, total: Double): String {
 
     return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req +"}"
 }
+
+fun getNow(): LocalDateTime {
+    return getDate("2023-11-28 12:15:00")
+}
