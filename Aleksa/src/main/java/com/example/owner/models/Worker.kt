@@ -17,8 +17,10 @@ class Worker(
         @Composable
         public fun getFakeWorkers(): List<Worker> {
             return listOf(
-                Worker(id = 0, placeId = 0, name = "Peter", lastName = "Jones", image = R.drawable.worker1),
-                Worker(id = 1, placeId = 0, name = "Maya", lastName = "Williams", image = R.drawable.worker2)
+                Worker(id = 0, placeId = 0, name = "Mark", lastName = "Anderson", image = R.drawable.worker0),
+                Worker(id = 1, placeId = 0, name = "Peter", lastName = "Jones", image = R.drawable.worker1),
+                Worker(id = 2, placeId = 0, name = "Maya", lastName = "Williams", image = R.drawable.worker2),
+                Worker(id = 3, placeId = 0, name = "Tanya", lastName = "Ivannovich", image = R.drawable.worker3)
             )
         }
     }

@@ -70,8 +70,10 @@ import com.example.owner.R
 import com.example.owner.models.Category
 import com.example.owner.models.Item
 import com.example.owner.models.Worker
+import com.example.owner.models.WorkerStatistics
 import com.example.owner.ui.theme.OwnerTheme
 import java.lang.reflect.ReflectPermission
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -333,6 +335,67 @@ fun AddWorkerScreen(onClick: (String, String, String, Uri?) -> Unit, modifier: M
 
 
 @Composable
-fun StaticsScreen() {
-    Text("TO DO -> STATISTICS")
+fun StaticsScreen(modifier: Modifier = Modifier) {
+    val periodLabels = listOf("Daily", "Monthly", "Yearly")
+    val periodValues = listOf(WorkerStatistics.DAILY, WorkerStatistics.MONTHLY, WorkerStatistics.YEARLY)
+    var periodLabel by rememberSaveable { mutableStateOf("Monthly") }
+    var periodValue by rememberSaveable { mutableStateOf(WorkerStatistics.MONTHLY) }
+
+    val focusLabels = listOf("Tables", "Money", "Tips", "Wait time")
+    val focusValues = listOf(WorkerStatistics.TABLES, WorkerStatistics.MONEY, WorkerStatistics.TIPS, WorkerStatistics.WAIT)
+    var focusLabel by rememberSaveable { mutableStateOf("Tables") }
+    var focusValue by rememberSaveable { mutableStateOf(WorkerStatistics.TABLES) }
+
+    val stats0 = WorkerStatistics.getFakeStatistics(period = periodValue)
+    val stats = stats0.sortedWith(object: Comparator<WorkerStatistics> {
+        override fun compare(o1: WorkerStatistics?, o2: WorkerStatistics?): Int {
+            if (o1 == null || o2 == null) return 0
+            return when(focusValue) {
+                WorkerStatistics.TABLES -> o2.tablesServed - o1.tablesServed
+                WorkerStatistics.MONEY -> if (o2.moneyEarned - o1.moneyEarned > 0.0) 1 else -1
+                WorkerStatistics.TIPS -> if (o2.tipsEarned - o1.tipsEarned > 0.0) 1 else -1
+                WorkerStatistics.WAIT -> o1.avgWaitTime - o2.avgWaitTime
+                else -> 0
+            }
+        }
+    })
+    var award = 0
+    LazyColumn(modifier = modifier) {
+        item {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(1.dp)) {
+                Column(modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()) {
+                    Text("Period:")
+                    SimpleDropdown(
+                        labels = periodLabels,
+                        values = periodValues,
+                        selectedValue = periodValue,
+                        selectedLabel = periodLabel,
+                        onSelect = {value, label -> periodValue = value; periodLabel = label}
+                    )
+                }
+                Column(modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()) {
+                    Text("Order by:")
+                    SimpleDropdown(
+                        labels = focusLabels,
+                        values = focusValues,
+                        selectedValue = focusValue,
+                        selectedLabel = focusLabel,
+                        onSelect = {value, label -> focusValue = value; focusLabel = label}
+                    )
+                }
+            }
+        }
+        items(stats) {
+            award = award + 1
+            WorkerStatisticCard(stats = it, award = award, focus = focusValue, modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp))
+        }
+    }
 }
