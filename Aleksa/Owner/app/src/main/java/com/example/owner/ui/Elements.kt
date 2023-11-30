@@ -146,7 +146,7 @@ fun CategoryButton(
 }
 
 @Composable
-fun WorkerButton(worker: Worker, onViewStatistics: () -> Unit, modifier: Modifier = Modifier) {
+fun WorkerButton(worker: Worker, onEdit: () -> Unit, modifier: Modifier = Modifier) {
     Row (
         modifier = modifier.height(250.dp)
     ) {
@@ -165,11 +165,11 @@ fun WorkerButton(worker: Worker, onViewStatistics: () -> Unit, modifier: Modifie
             Row(
                 horizontalArrangement = Arrangement.End
             ) {
-                Text(text = "Statistics",
+                Text(text = "Edit",
                     color = Color.Blue,
                     textDecoration = TextDecoration.Underline,
                     modifier = Modifier
-                        .clickable { onViewStatistics() }
+                        .clickable { onEdit() }
                 )
             }
         }

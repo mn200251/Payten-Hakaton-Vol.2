@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities.admin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

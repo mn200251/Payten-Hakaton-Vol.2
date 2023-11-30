@@ -90,7 +90,7 @@ fun WorkerButtonPreview() {
                 name = "Worker",
                 lastName = "Workeric",
                 image = 0
-            ), onViewStatistics = { /*TODO*/ },
+            ), onEdit = { /*TODO*/ },
             modifier = Modifier.fillMaxWidth())
     }
 }
