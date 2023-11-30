@@ -42,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mojkonobar.composables.PreviewViewComposable
 import com.example.mojkonobar.composables.TopBar
 import com.example.mojkonobar.screens.AccountScreen
+import com.example.mojkonobar.screens.Category
 import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
@@ -430,9 +431,11 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
             MenuScreen(viewModel, modifier= Modifier,mainActivity)
         }}
     else if(uiState.currScreen==5){
+        var pomoc=Category.getFakeCategories()
+
         Scaffold (
             topBar={
-                TopBar(modifier = Modifier, text = "Item", backScreenNumber = 4)
+                TopBar(modifier = Modifier, text = pomoc.get(uiState.currCategory).name, backScreenNumber = 4)
             },
             bottomBar = {
                 NavigationBar() {

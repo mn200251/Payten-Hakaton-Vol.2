@@ -56,8 +56,8 @@ fun LoginScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier
             OutlinedButton(
                 onClick =
                 {
-                    viewModel.tryLogin()
-                    viewModel.changeScreen(0)
+                    //viewModel.tryLogin()
+                    viewModel.changeScreen(1)
                 },
                 shape = MaterialTheme.shapes.small) {
                 Text(text = "Log in", style = MaterialTheme.typography.labelMedium,)

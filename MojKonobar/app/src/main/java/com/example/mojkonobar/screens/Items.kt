@@ -82,23 +82,23 @@ fun ItemsScreen(
 ) {
 
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier.padding(top = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .clickable { onAddItem() }
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Add Item", modifier = Modifier
-                    .padding(10.dp)
-                    .size(75.dp))
-                Text(text = "Return", style = MaterialTheme.typography.labelLarge)
-            }
-        }
+//        item {
+//            Row(
+//                modifier = Modifier
+//                    .clickable { onAddItem() }
+//                    .fillMaxWidth(),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Add Item", modifier = Modifier
+//                    .padding(10.dp)
+//                    .size(75.dp))
+//                Text(text = "Return", style = MaterialTheme.typography.labelLarge)
+//            }
+
         items(items) {
             ItemButton(item = it, onEdit = {onEdit(it)}, modifier = Modifier.fillMaxWidth())
         }
