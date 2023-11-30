@@ -123,6 +123,13 @@ class MojKonobarViewModel(private val savedStateHandle: SavedStateHandle) : View
             uiState.value.passwordText== uiState.value.loginPassword)
         {
             newErrorMessage = ""
+
+            savedStateHandle[UI_STATE_KEY] = _uiState2.value.copy(
+                currScreen =  1
+            )
+            _uiState1.update { currentCaloriesUiState -> currentCaloriesUiState.copy(
+                currScreen = 1
+            ) }
         }
         else if(uiState.value.usernameText != uiState.value.loginUsername)
         {

@@ -103,7 +103,7 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                         ) {
 
                             Column {
-                                Button(onClick = { /*TODO*/ },
+                                Button(onClick = { if (index == 4) viewModel.changeScreen(4) },
                                     shape = RectangleShape,
                                     colors = ButtonColors(
                                         Color.Transparent,

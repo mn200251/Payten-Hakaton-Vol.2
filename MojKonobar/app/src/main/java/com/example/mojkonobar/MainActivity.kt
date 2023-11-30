@@ -203,7 +203,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
     else if (uiState.currScreen==2){
         Scaffold (
             topBar={
-                TopBar(modifier = Modifier, text = "Home", backScreenNumber = 1)
+                TopBar(modifier = Modifier, text = "Desert", backScreenNumber = 1)
             },
             bottomBar = {
                 NavigationBar() {
@@ -355,7 +355,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
     else if(uiState.currScreen==4){
         Scaffold (
             topBar={
-                TopBar(modifier = Modifier, text = "Home", backScreenNumber = 1)
+                TopBar(modifier = Modifier, text = "Tramvaj", backScreenNumber = 1)
             },
             bottomBar = {
                 NavigationBar() {
