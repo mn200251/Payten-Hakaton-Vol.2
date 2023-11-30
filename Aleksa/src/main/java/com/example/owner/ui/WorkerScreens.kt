@@ -57,7 +57,7 @@ fun OrderItemsScreen(order: Order, onPay: () -> Unit, onServe: (OrderItem) -> Un
         if (order.paymethod != null) {
             if (order.tip != null) {
                 item {
-                    Text("Tip: $${order.price}")
+                    Text("Tip: $${order.tip}")
                 }
             }
             val cash: Boolean = order.paymethod == Order.CASH

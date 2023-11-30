@@ -15,6 +15,7 @@ import com.example.owner.models.Order
 import com.example.owner.ui.OrderItemsScreen
 import com.example.owner.ui.getPaytenRequestJson
 import com.example.owner.ui.theme.OwnerTheme
+import com.example.owner.ui.toRSD
 
 class OrderItemsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +29,20 @@ class OrderItemsActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     OrderItemsScreen(order = order, onPay = {
-                        intent = Intent("com.payten.ecr.action")
-                        intent.setPackage("com.payten.paytenapos")
-                        intent.putExtra("ecrJson", getPaytenRequestJson(order.price, order.tip?:0.0, order.price + (order.tip?:0.0)))
-                        intent.putExtra("senderIntentFilter", "paytenreceive")
-                        intent.putExtra("senderPackage", "com.example.owner")
-                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
-                        sendBroadcast(intent)
+                        if (order.paymethod == Order.CARD) {
+                            intent = Intent("com.payten.ecr.action")
+                            intent.setPackage("com.payten.paytenapos")
+                            intent.putExtra(
+                                "ecrJson",
+                                getPaytenRequestJson(
+                                    toRSD(order.price),
+                                    toRSD(order.tip ?: 0.0))
+                                )
+                            intent.putExtra("senderIntentFilter", "paytenreceive")
+                            intent.putExtra("senderPackage", "com.example.owner")
+                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+                            sendBroadcast(intent)
+                        }
                     }, onServe = {
                         /*
                         To do update orderitem status to served,

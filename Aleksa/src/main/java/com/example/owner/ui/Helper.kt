@@ -123,14 +123,26 @@ fun shaEncode(input: String): String {
 
     return hexString
 }
+fun toRSD(usd: Double): Double {
+    return usd * 106.86
+}
+private fun nozero(t: Double): String {
+    var res: String = t.toString()
+    while (res.length > 0 && res.last() == '0') res = res.substring(0, res.length - 1)
+    if (res.last() == '.') res = res.substring(0, res.length - 1)
+    return res
+}
+var ecr: Long = System.currentTimeMillis() % 1000000
+fun getPaytenRequestJson(base: Double, tip: Double): String {
+    //var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"total\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
+    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
+    req = String.format(req, nozero(base), nozero(tip)) + "}"
 
-fun getPaytenRequestJson(base: Double, tip: Double, total: Double): String {
-    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"cashier\":\"\"},\"amounts\":{\"base\":%f,\"tip\":%f,\"total\":%f,\"currencyCode\":\"840\"},\"options\":{\"print\":false}}}"
-    req = String.format(req, base, tip, total)
-    val length = req.length
+    //req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":1.6,\"tip\":2.4,\"total\":10,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}}"
+    val length = req.toByteArray().size
     val sha = shaEncode(req)
 
-    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req +"}"
+    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req
 }
 
 fun getNow(): LocalDateTime {
