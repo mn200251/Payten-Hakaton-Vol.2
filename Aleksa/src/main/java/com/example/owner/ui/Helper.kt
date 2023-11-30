@@ -106,7 +106,9 @@ fun OrderStatusBar(status: Int, modifier: Modifier = Modifier) {
         Order.DONE -> { text = "Done"; }
     }
     OutlinedCard(shape = MaterialTheme.shapes.medium, modifier = modifier.background(color = color, shape = MaterialTheme.shapes.medium)) {
-        Text(text = text, style = MaterialTheme.typography.labelMedium,  modifier = Modifier.background(color = color).padding(10.dp))
+        Text(text = text, style = MaterialTheme.typography.labelMedium,  modifier = Modifier
+            .background(color = color)
+            .padding(10.dp))
     }
 
 }
@@ -147,4 +149,28 @@ fun getPaytenRequestJson(base: Double, tip: Double): String {
 
 fun getNow(): LocalDateTime {
     return getDate("2023-11-28 12:15:00")
+}
+
+@Composable
+fun SimpleDropdown(labels: List<String>, values: List<Int>, selectedValue: Int, selectedLabel: String, onSelect: (Int, String) -> Unit, modifier:Modifier = Modifier) {
+    var expanded: Boolean by rememberSaveable { mutableStateOf(false) }
+    Box(modifier = modifier) {
+        OutlinedButton(onClick = { expanded = !expanded }, shape = MaterialTheme.shapes.small) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(selectedLabel, style = MaterialTheme.typography.labelMedium)
+                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Select")
+            }
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false}) {
+            val label = labels.iterator()
+            val value = values.iterator()
+            while (label.hasNext()) {
+                val curlabel = label.next()
+                val curvalue = value.next()
+                DropdownMenuItem(
+                    text = { Text(curlabel, style = MaterialTheme.typography.labelMedium) },
+                    onClick = { expanded = false; onSelect(curvalue, curlabel) })
+            }
+        }
+    }
 }

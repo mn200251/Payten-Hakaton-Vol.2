@@ -27,6 +27,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
@@ -79,6 +81,7 @@ import com.example.owner.models.Item
 import com.example.owner.models.Order
 import com.example.owner.models.OrderItem
 import com.example.owner.models.Worker
+import com.example.owner.models.WorkerStatistics
 import com.example.owner.ui.theme.LightBlue
 import com.example.owner.ui.theme.LightGreen
 import com.example.owner.ui.theme.OwnerTheme
@@ -145,13 +148,14 @@ fun CategoryButton(
 @Composable
 fun WorkerButton(worker: Worker, onViewStatistics: () -> Unit, modifier: Modifier = Modifier) {
     Row (
-        modifier = modifier
+        modifier = modifier.height(250.dp)
     ) {
         Image(painter = worker.getPainter(),
             contentDescription = worker.name,
             modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
-                .width(150.dp),
+                .width(150.dp)
+                .fillMaxHeight(),
             contentScale = ContentScale.Crop)
         Column(
             modifier = Modifier.padding(15.dp)
@@ -333,5 +337,104 @@ fun OrderItemElement(orderItem: OrderItem, onServe: () -> Unit, modifier: Modifi
             }
         }
 
+    }
+}
+@Composable
+public fun WorkerStatisticCard(stats: WorkerStatistics, award: Int, focus: Int, modifier: Modifier = Modifier) {
+    val name = stats.workerName + " " + stats.workerLastName
+    val highlightColor = MaterialTheme.colorScheme.primary
+    val dataStyle = MaterialTheme.typography.labelMedium
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(250.dp)
+            .padding(vertical = 5.dp)
+    ) {
+        Box(modifier = Modifier
+            .width(150.dp)
+            .fillMaxHeight()) {
+
+            Image(painter = stats.getPainter(),
+                contentDescription = name,
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                contentScale = ContentScale.Crop)
+            when(award) {
+                1 -> Image(painter = painterResource(id = R.drawable.gold), contentDescription = "First place", modifier = Modifier
+                    .size(60.dp)
+                    .padding(10.dp))
+                2 -> Image(painter = painterResource(id = R.drawable.silver), contentDescription = "Second place", modifier = Modifier
+                    .size(60.dp)
+                    .padding(10.dp))
+                3 -> Image(painter = painterResource(id = R.drawable.bronze), contentDescription = "Third place", modifier = Modifier
+                    .size(60.dp)
+                    .padding(10.dp))
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .weight(1f),
+                verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val color = if(focus == WorkerStatistics.TABLES) highlightColor else Color.Black
+                        Text(stats.tablesServed.toString(), style = dataStyle, color = color)
+                        Text("Tables served", style = MaterialTheme.typography.labelSmall, color = color)
+                    }
+
+                }
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val color = if(focus == WorkerStatistics.MONEY) highlightColor else Color.Black
+                        Text(String.format("$%.1f", stats.moneyEarned), style = dataStyle, color = color)
+                        Text("Money earned", style = MaterialTheme.typography.labelSmall, color = color)
+                    }
+
+                }
+            }
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .weight(1f),
+                verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val color = if(focus == WorkerStatistics.TIPS) highlightColor else Color.Black
+                        Text(String.format("$%.1f", stats.tipsEarned), style = dataStyle, color = color)
+                        Text("Tips earned", style = MaterialTheme.typography.labelSmall, color = color)
+                    }
+                }
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    val sec = stats.avgWaitTime % 60
+                    val min = stats.avgWaitTime / 60
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val color = if(focus == WorkerStatistics.WAIT) highlightColor else Color.Black
+                        Text(String.format("%02d:%02d", min, sec), style = dataStyle, color = color)
+                        Text("Average wait time", style = MaterialTheme.typography.labelSmall, color = color)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,10 +1,13 @@
 package com.example.mojkonobar.screens
 
 import android.content.Context
+import android.content.Intent
+import android.service.autofill.OnClickAction
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -91,6 +94,7 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                             bottom = 0.dp
                         ).background(MaterialTheme.colorScheme.secondary),
                     ) {
+
                         Column(modifier=modifier.background(MaterialTheme.colorScheme.secondary),) {
                             Button(onClick = { /*TODO*/ } ,
                                 shape = RectangleShape,
@@ -101,7 +105,7 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                                     .background(MaterialTheme.colorScheme.secondary)
                                     ) {
 
-                                Row {
+                                Row{
                                     Column(modifier = modifier
                                         .fillMaxWidth(0.5f).padding(end = 15.dp)) {
 
