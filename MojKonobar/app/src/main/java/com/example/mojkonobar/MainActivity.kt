@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -35,6 +36,7 @@ import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.LoginScreen
 import com.example.mojkonobar.screens.RegisterScreen
 import com.example.mojkonobar.ui.theme.MojKonobarTheme
+import com.example.mojkonobar.ui.theme.Offwhite
 import com.example.posaplikacija.stateholders.MojKonobarViewModel
 
 class MainActivity : ComponentActivity() {
@@ -121,7 +123,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MojKonobar(this@MainActivity,selected2)
 //                    val simpleProgressBar = findViewById<ProgressBar>(com.example.mojkonobar.R.id.simpleProgressBar)
-                    MojKonobar(this)
+                    //MojKonobar(this)
 //                    val simpleProgressBar: ProgressBar = findViewById(R.id.progressBar)
 //                    simpleProgressBar.visibility = View.VISIBLE
 //                    simpleProgressBar.progress = 50
@@ -138,6 +140,7 @@ fun MojKonobar(mainActivity: MainActivity, int:Int)
 {
     val viewModel: MojKonobarViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
+
     uiState.currScreen=int
     if (uiState.currScreen==1) {
         // LoginScreen(viewModel, modifier = Modifier)

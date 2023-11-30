@@ -38,6 +38,10 @@ import com.example.mojkonobar.composables.rememberCoffee
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
@@ -45,6 +49,7 @@ import com.example.mojkonobar.R
 import com.example.mojkonobar.composables.rememberFastfood
 import com.example.mojkonobar.composables.rememberFoodBank
 import com.example.mojkonobar.composables.rememberLocalPizza
+import com.example.mojkonobar.ui.theme.ComplementaryRed
 import com.example.posaplikacija.stateholders.places
 
 
@@ -63,32 +68,37 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
     iconHashMap[4] = rememberCoffee()
 
     val upperPaddingHashMap = HashMap<Int, Dp>()
-    upperPaddingHashMap[0] = 16.dp
-    upperPaddingHashMap[1] = 20.dp
-    upperPaddingHashMap[2] = 12.dp
-    upperPaddingHashMap[3] = 10.dp
-    upperPaddingHashMap[4] = 12.dp
+    upperPaddingHashMap[0] = 0.dp
+    upperPaddingHashMap[1] = 0.dp
+    upperPaddingHashMap[2] = 0.dp
+    upperPaddingHashMap[3] = 0.dp
+    upperPaddingHashMap[4] = 0.dp
     // val context = LocalContext.current
+
+    val letterSizeHeading=23.sp;
+    val letterSizeOpis=13.sp;
+    val letterSizePoeni=12.sp;
 
     LazyColumn {
         itemsIndexed(items = places) { index, place ->
-            Card {
-                Column {
+            Card(modifier=modifier.background(MaterialTheme.colorScheme.secondary)) {
+                Column(modifier=modifier.background(MaterialTheme.colorScheme.secondary)) {
                     Row(
                         modifier = Modifier.padding(
                             start = 0.dp,
                             top = 4.dp,
                             end = 4.dp,
                             bottom = 0.dp
-                        ),
+                        ).background(MaterialTheme.colorScheme.secondary),
                     ) {
-                        Column {
+                        Column(modifier=modifier.background(MaterialTheme.colorScheme.secondary),) {
                             Button(onClick = { /*TODO*/ } ,
                                 shape = RectangleShape,
-                                colors = ButtonColors(Color.Transparent,Color.Black,Color.Gray,Color.Gray),
+                                colors = ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
                                 modifier = modifier
                                     .fillMaxSize()
-                                    .height(185.dp)
+                                    .height(180.dp)
+                                    .background(MaterialTheme.colorScheme.secondary)
                                     ) {
 
                                 Row {
@@ -102,57 +112,76 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                                         Image(
                                             painter = painterResource(id = place.imageLink),
                                             contentDescription = null,
-                                            modifier = imageModifier
+                                            modifier = imageModifier.background(MaterialTheme.colorScheme.secondary),
                                         )
 
                                     }
                                         Column(modifier = modifier
                                             .fillMaxWidth()) {
                                             Row {
-                                                Text(text = place.location, fontSize = 26.sp)
+                                                Text(text = place.location, fontSize = letterSizeHeading)
                                             }
                                             Spacer(modifier = Modifier.height(10.dp))
                                             Row {
-                                                Text(text = place.description, fontSize = 15.sp)
+                                                Text(text = place.description, fontSize = letterSizeOpis)
                                             }
                                             Spacer(modifier = modifier.height(10.dp))
                                             Row {
 
-                                                Column {
 
-                                                }
+                                                    Text(text = ""+ place.currLoyalityPoints + " / " + place.requiredLoyalityPoints+" ",
+                                                        fontSize = letterSizePoeni,
+                                                        modifier = Modifier.padding(
+                                                            start = 0.dp,
+                                                            top = 4.dp,
+                                                            end = 0.dp,
+                                                            bottom = 0.dp
+                                                        ),
+                                                    )
 
-                                                Column {
-                                                    Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
+
+
+                                                    //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
                                                             (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat())
                                                         },
-                                                        color = if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
-                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
-                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
-                                                        else Color.Blue,
+                                                        color = MaterialTheme.colorScheme.primary,
+//                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
+//                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
+//                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
+//                                                        else Color.Blue,
                                                         trackColor = Color.Gray,
-                                                        modifier = Modifier.fillMaxWidth(0.7f),
+                                                        modifier = Modifier.fillMaxWidth(0.7f).padding(
+                                                            start = 0.dp,
+                                                            top = 13.dp,
+                                                            end = 0.dp,
+                                                            bottom = 0.dp
+                                                        ),
                                                         strokeCap = StrokeCap.Butt
                                                     )
-                                                }
 
-                                                Column (modifier = modifier.padding(start = 8.dp)){
+
+
                                                     iconHashMap[index]?.let { Icon(it, "") }
-                                                }
+
                                             }
 
-                                            Row()
-                                            {
-                                                Text(text = "Points: " + place.currLoyalityPoints + " out of " + place.requiredLoyalityPoints,
-                                                    fontSize = 14.sp)
-                                            }
+//                                            Row()
+//                                            {
+//                                                Text(text = "Points: " + place.currLoyalityPoints + " out of " + place.requiredLoyalityPoints,
+//                                                    fontSize = 14.sp)
+//                                            }
                                         }
                                     }
                            }
                         }
                     }
+                    HorizontalDivider(
+                        modifier = modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.tertiary
+                    )
                 }
             }
         }
