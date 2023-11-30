@@ -37,6 +37,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mojkonobar.composables.PreviewViewComposable
+import com.example.mojkonobar.screens.AccountScreen
 import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
@@ -165,7 +166,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -205,7 +206,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -238,7 +239,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -278,7 +279,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -311,7 +312,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -354,7 +355,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -387,7 +388,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -428,7 +429,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -461,7 +462,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -502,7 +503,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -535,7 +536,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -576,7 +577,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -609,7 +610,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -627,7 +628,95 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
             MenuScreen(viewModel, modifier= Modifier,mainActivity)
         }}
     else if (uiState.currScreen == 10) {
-        PreviewViewComposable()
+        PreviewViewComposable(vm)
+    }
+    else if (uiState.currScreen == 11) {
+
+
+
+
+
+
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+                            /*
+                            val REQUEST_IMAGE_CAPTURE = 1
+                            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            try {
+                                startActivityForResult(mainActivity, takePictureIntent, REQUEST_IMAGE_CAPTURE, null)
+                            } catch (e: ActivityNotFoundException) {
+                                // display error state to the user
+                            }*/
+
+
+                            vm.changeScreen(10)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(11)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+            AccountScreen(viewModel = viewModel, modifier = Modifier, context = mainActivity)
+        }
     }
     else if(uiState.currScreen==8){
         Scaffold (
@@ -653,7 +742,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -686,7 +775,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
