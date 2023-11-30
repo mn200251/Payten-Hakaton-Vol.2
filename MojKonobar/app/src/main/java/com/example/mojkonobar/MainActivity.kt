@@ -1,8 +1,10 @@
 package com.example.mojkonobar
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -31,7 +33,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mojkonobar.composables.PreviewViewComposable
 import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
@@ -70,9 +75,10 @@ class MainActivity : ComponentActivity() {
 
 
 
+@androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
+fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 {
     //val viewModel: MojKonobarViewModel = viewModel()
     var vm=viewModel
@@ -117,8 +123,17 @@ fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 
                         selected = false ,
                         onClick = {
+                            /*
+                            val REQUEST_IMAGE_CAPTURE = 1
+                            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            try {
+                                startActivityForResult(mainActivity, takePictureIntent, REQUEST_IMAGE_CAPTURE, null)
+                            } catch (e: ActivityNotFoundException) {
+                                // display error state to the user
+                            }*/
 
-                            vm.changeScreen(2)
+
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -133,7 +148,6 @@ fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 
                         selected = false ,
                         onClick = {
-
                             vm.changeScreen(3)
                         },
                         //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
@@ -612,6 +626,9 @@ fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 
             MenuScreen(viewModel, modifier= Modifier,mainActivity)
         }}
+    else if (uiState.currScreen == 10) {
+        PreviewViewComposable()
+    }
     else if(uiState.currScreen==8){
         Scaffold (
             bottomBar = {

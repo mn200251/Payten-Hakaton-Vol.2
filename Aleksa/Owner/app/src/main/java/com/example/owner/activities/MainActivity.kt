@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.owner.ui.LoginScreen
+import com.example.owner.ui.HomeScreen
 import com.example.owner.ui.theme.OwnerTheme
 
-class LoginAdminActivity : ComponentActivity() {
+
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,19 +22,21 @@ class LoginAdminActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen(
-                        field1 = "Place ID",
-                        field2 = "Password",
-                        button = "Login",
-                        onClick = { id, pass ->
-                            /* TO DO
-                            * Check database and remember current user (place)
-                            * */
-                            intent = Intent(this, AdminActivity::class.java)
+                    HomeScreen(
+                        onLoginAdmin = {
+                            intent = Intent(this, LoginAdminActivity::class.java);
+                            startActivity(intent) },
+                        onLoginWorker = {
+                            intent = Intent(this, LoginWorkerActivity::class.java)
+                            startActivity(intent)
+                        },
+                        onRegister = {
+                            intent = Intent(this, RegisterActivity::class.java)
                             startActivity(intent)
                         }, modifier = Modifier.fillMaxSize()
                     )
                 }
+
             }
         }
     }

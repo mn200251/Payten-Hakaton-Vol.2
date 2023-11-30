@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.owner.models.Category
-import com.example.owner.ui.UpdateMenuScreen
+import com.example.owner.activities.admin.AdminActivity
+import com.example.owner.ui.LoginScreen
 import com.example.owner.ui.theme.OwnerTheme
 
-class UpdateMenuActivity : ComponentActivity() {
+class LoginAdminActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,18 +22,16 @@ class UpdateMenuActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*
-                    TO DO: Retrieve categories for current place from database.
-                     */
-                    UpdateMenuScreen(onAddCategory = {
-                            intent = Intent(this, AddCategoryActivity::class.java)
+                    LoginScreen(
+                        field1 = "Place ID",
+                        field2 = "Password",
+                        button = "Login",
+                        onClick = { id, pass ->
+                            /* TO DO
+                            * Check database and remember current user (place)
+                            * */
+                            intent = Intent(this, AdminActivity::class.java)
                             startActivity(intent)
-                        },
-                        categories = Category.getFakeCategories(),
-                        onClick = {
-                            intent = Intent(this, ItemsActivity::class.java)
-                            startActivity(intent)
-                            (this.applicationContext as App).category = it
                         }, modifier = Modifier.fillMaxSize()
                     )
                 }

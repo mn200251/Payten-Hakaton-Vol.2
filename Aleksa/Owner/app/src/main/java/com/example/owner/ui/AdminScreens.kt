@@ -1,19 +1,10 @@
 package com.example.owner.ui
 
-import android.content.ContentResolver
 import android.net.Uri
-import android.os.Bundle
-import android.provider.MediaStore
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,58 +13,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
-import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 import com.example.owner.R
 import com.example.owner.models.Category
 import com.example.owner.models.Item
 import com.example.owner.models.Worker
 import com.example.owner.models.WorkerStatistics
-import com.example.owner.ui.theme.OwnerTheme
-import java.lang.reflect.ReflectPermission
-import kotlin.math.roundToInt
 
 
 @Composable
@@ -266,36 +231,50 @@ fun AddItemScreen(onClick: (String, String, Double, Uri?) -> Unit, modifier: Mod
 fun ManageWorkersScreen(
     onAddWorker: () -> Unit,
     workers: List<Worker>,
-    onViewStatistics: (Worker) -> Unit,
+    onEdit: (Worker) -> Unit,
+    onStats: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = modifier
-    ) {
-        item() {
-            Row(
-                modifier = Modifier
-                    .clickable { onAddWorker() }
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Worker", modifier = Modifier
-                    .padding(10.dp)
-                    .size(75.dp))
-                Text(text = "Add New Worker", style = MaterialTheme.typography.labelMedium)
+    Box(modifier = modifier) {
+        LazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier.fillMaxSize()
+        ) {
+            item() {
+                Row(
+                    modifier = Modifier
+                        .clickable { onAddWorker() }
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Worker", modifier = Modifier
+                        .padding(10.dp)
+                        .size(75.dp))
+                    Text(text = "Add New Worker", style = MaterialTheme.typography.labelMedium)
+                }
+            }
+            items(workers) {
+                WorkerButton(worker = it, onEdit = { onEdit(it) }, modifier = Modifier.fillMaxWidth())
             }
         }
-        items(workers) {
-            WorkerButton(worker = it, onViewStatistics = { onViewStatistics(it) }, modifier = Modifier.fillMaxWidth())
+        FloatingActionButton(onClick = { onStats() }, modifier = Modifier
+            .align(Alignment.BottomEnd)
+            .padding(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Stats", style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(5.dp))
+                Icon(painter = painterResource(id = R.drawable.bars), contentDescription = "Worker stats", modifier = Modifier
+                    .size(30.dp)
+                    .padding(5.dp))
+            }
         }
     }
+
 }
 
 @Composable
-fun WorkerStatisticsScreen() {
-    Text("TO DO - Show tables/items served, money/tips earned, for selected period (past day, month or year)")
+fun EditWorkerScreen() {
+    Text("TO DO - Edit worker data")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -335,7 +314,7 @@ fun AddWorkerScreen(onClick: (String, String, String, Uri?) -> Unit, modifier: M
 
 
 @Composable
-fun StaticsScreen(modifier: Modifier = Modifier) {
+fun WorkerRankingScreen(modifier: Modifier = Modifier) {
     val periodLabels = listOf("Daily", "Monthly", "Yearly")
     val periodValues = listOf(WorkerStatistics.DAILY, WorkerStatistics.MONTHLY, WorkerStatistics.YEARLY)
     var periodLabel by rememberSaveable { mutableStateOf("Monthly") }
