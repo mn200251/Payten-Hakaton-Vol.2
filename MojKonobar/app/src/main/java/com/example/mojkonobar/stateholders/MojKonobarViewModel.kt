@@ -9,11 +9,15 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.mojkonobar.R
+import com.example.mojkonobar.classes.Order
+import com.example.mojkonobar.classes.OrderItem
 import com.example.mojkonobar.classes.Place
 import com.example.mojkonobar.screens.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Parcelize
@@ -39,6 +43,20 @@ var places: List<Place> = listOf(
     Place(4, "bucko@gmail.com", "123", R.drawable.bucko, "Bucko", "Bucko pizza - najbolja i najfinija pizza u kraju. Svrati kad god.", 367, 500, Icons.Rounded.Add),
     Place(5, "tramvaj@gmail.com", "123", R.drawable.tramvaj, "Tramvaj ", "Osvezen novim idejama ponovo otvara svoja vrata ljubiteljima piva.", 500, 500, Icons.Rounded.Add),
 )
+
+val orderItems1 = listOf<OrderItem>(
+    OrderItem(1, 1, null, served = 1, name = "Mojito", price = 3.5, R.drawable.mojito)
+)
+
+val orderItems2 = listOf<OrderItem>(
+    OrderItem(2, 2, "No ice", served = 0, name = "Margheritta", price = 3.0, R.drawable.margherita),
+    OrderItem(3, 2, null, served = 0, name = "Apple pie", price = 3.0, R.drawable.applepie)
+)
+
+val order1 = Order(places[4], Order.WAITING, null, 3.5, null, LocalDate.parse("2023-11-29", DateTimeFormatter.ofPattern("yyyy-MM-dd")), orderItems1)
+val order2 = Order(places[2], Order.DONE, 1, 6.0, 2.0, LocalDate.parse("2023-11-28", DateTimeFormatter.ofPattern("yyyy-MM-dd")), orderItems2)
+
+val orders = listOf<Order>(order1, order2)
 
 
 
