@@ -101,9 +101,7 @@ fun PreviewViewComposable(vm: MojKonobarViewModel) {
             .size(width = 250.dp, height = 250.dp))
 }
 
-
 /*
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -201,9 +199,5 @@ dependencies {
     implementation ("androidx.camera:camera-view:${camerax_version}")
     implementation ("com.google.mlkit:barcode-scanning:17.0.3")
     implementation ("com.google.accompanist:accompanist-permissions:0.32.0")
-}
+}*/
 
-
-
-
- */
