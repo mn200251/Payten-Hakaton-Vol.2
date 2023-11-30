@@ -62,6 +62,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -141,7 +142,7 @@ fun Spinner(
                             onSelect(it)
                             isExpanded = false
                         },
-                        text = { Text(text = it) }
+                        text = { Text(text = it, style = MaterialTheme.typography.labelMedium) }
                     )
                 }
             }
@@ -248,10 +249,10 @@ fun PiechartWithSliceLables(context: Context, pointsData: List<Point>, columnHea
     columnHeader2: String, spinerName: String, onSelect: (String) -> Unit, options: List<String>) {
     // val pieChartData = DataUtils.getPieChartData2()
 
-    var item1 by rememberSaveable { mutableStateOf("Coffe") }
-    var item2 by rememberSaveable { mutableStateOf("Tea") }
-    var item3 by rememberSaveable { mutableStateOf("Bagel") }
-    var item4 by rememberSaveable { mutableStateOf("Cake") }
+    var item1 by rememberSaveable { mutableStateOf("Cheesecake") }
+    var item2 by rememberSaveable { mutableStateOf("Sachertorte") }
+    var item3 by rememberSaveable { mutableStateOf("Apple Pie") }
+    var item4 by rememberSaveable { mutableStateOf("Chocolate Muffin") }
 
     var val1 by rememberSaveable { mutableStateOf(65f) }
     var val2 by rememberSaveable { mutableStateOf(35f) }
@@ -297,16 +298,16 @@ fun PiechartWithSliceLables(context: Context, pointsData: List<Point>, columnHea
         item {
             Spinner(spinerName, {when(it) {
                 "morning" -> {
-                    item1 = "Coffe"; item2 = "Tea"; item3 = "Bagel"; item4 = "Cake";
+                    item1 = "Cheesecake"; item2 = "Sachertorte"; item3 = "Apple Pie"; item4 = "Chocolate Muffin";
                     val1 = 65f; val2 = 35f; val3 = 10f; val4 = 40f;
                 }
                 "noon" -> {
-                    item1 = "Tea"; item2 = "Coffe"; item3 = "Ice Cream"; item4 = "Cake";
+                    item1 = "Sachertorte"; item2 = "Cheesecake"; item3 = "Apple pie"; item4 = "Chocolate Muffin";
                     val1 = 75f; val2 = 25f; val3 = 30f; val4 = 20f;
 
                 }
                 "evening" -> {
-                    item1 = "Ice Coffe"; item2 = "Ice Tea"; item3 = "Cake"; item4 = "Ice Cream";
+                    item1 = "Cheesecake"; item2 = "Sachertorte"; item3 = "Chocolate Muffin"; item4 = "Apple pie";
                     val1 = 85f; val2 = 15f; val3 = 5f; val4 = 45f;
 
                 }
@@ -506,12 +507,12 @@ fun SimpleDonutChart() {
 
     val data = PieChartData(
         slices = listOf(
-            PieChartData.Slice("Konobar Konobaric", val1, Color(0xFF5F0A87)),
-            PieChartData.Slice("Kelner Kelneric", val2, Color(0xFF20BF55)),
-            PieChartData.Slice("Koktel Majstorovic", val3, Color(0xFFA40606)),
-            PieChartData.Slice("Sank Sankeric", val4, Color(0xFFF53844)),
-            PieChartData.Slice("Kono Baric", val5, Color(0xFFEC9F05)),
-            PieChartData.Slice("Sank Eric", val6, Color(0xFF009FFD)),
+            PieChartData.Slice("Mark Anderson", val1, Color(0xFF5F0A87)),
+            PieChartData.Slice("Peter Jones", val2, Color(0xFF20BF55)),
+            PieChartData.Slice("Maya Williams", val3, Color(0xFFA40606)),
+            PieChartData.Slice("Tanya Ivannovich", val4, Color(0xFFF53844)),
+            PieChartData.Slice("John Smith", val5, Color(0xFFEC9F05)),
+            PieChartData.Slice("Eric Ferguson", val6, Color(0xFF009FFD)),
         ),
         plotType = PlotType.Donut
     )
@@ -584,13 +585,13 @@ fun SimpleDonutChart() {
             }
         }
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Konobar Konobaric",
+            Text(text = "Mark Anderson",
                 Modifier.border(1.dp, Color.Black).padding(8.dp).weight(0.3f).fillMaxHeight())
             Text(text = val1.toString(),
                 Modifier.border(1.dp, Color.Black).padding(8.dp).weight(0.7f).fillMaxHeight())
         }}
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Kelner Kelneric",
+            Text(text = "Peter Jones",
                 Modifier
                     .border(1.dp, Color.Black)
                     .padding(8.dp)
@@ -604,7 +605,7 @@ fun SimpleDonutChart() {
                     .fillMaxHeight())
         }}
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Koktel Majstorovic",
+            Text(text = "Maya Williams",
                 Modifier
                     .border(1.dp, Color.Black)
                     .padding(8.dp)
@@ -618,7 +619,7 @@ fun SimpleDonutChart() {
                     .fillMaxHeight())
         }}
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Sank Sankeric",
+            Text(text = "Tanya Ivannovich",
                 Modifier
                     .border(1.dp, Color.Black)
                     .padding(8.dp)
@@ -632,7 +633,7 @@ fun SimpleDonutChart() {
                     .fillMaxHeight())
         }}
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Kono Baric",
+            Text(text = "John Smith",
                 Modifier
                     .border(1.dp, Color.Black)
                     .padding(8.dp)
@@ -646,7 +647,7 @@ fun SimpleDonutChart() {
                     .fillMaxHeight())
         }}
         item { Row(modifier = Modifier.fillMaxWidth().height(70.dp)) {
-            Text(text = "Sank Eric",
+            Text(text = "Eric Ferguson",
                 Modifier
                     .border(1.dp, Color.Black)
                     .padding(8.dp)

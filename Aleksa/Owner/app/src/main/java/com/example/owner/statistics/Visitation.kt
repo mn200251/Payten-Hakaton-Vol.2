@@ -78,7 +78,7 @@ fun ScreenVisitation(
                     .fillMaxWidth() ) {
                     Button(onClick = { navController.popBackStack() }, modifier = Modifier.weight(0.15f)) { Text(text = "<") }
                     Text(
-                        text = "Visitations",
+                        text = "Visits",
                         fontSize = 32.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.weight(0.7f)
