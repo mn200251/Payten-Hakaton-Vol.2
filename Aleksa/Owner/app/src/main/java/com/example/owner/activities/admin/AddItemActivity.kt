@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities.admin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.owner.ui.AddCategoryScreen
+import com.example.owner.ui.AddItemScreen
 import com.example.owner.ui.theme.OwnerTheme
 
-class AddCategoryActivity : ComponentActivity() {
+class AddItemActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,9 +23,9 @@ class AddCategoryActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AddCategoryScreen(onAdd = { name, icon ->
+                    AddItemScreen(onClick = { name, description, price, uri ->
                         /*
-                        TO DO -> INSERT INTO DATABASE
+                        TO DO -> CHECK DATA AND UPDATE DATABASE
                          */
                     }, modifier = Modifier.fillMaxSize())
                 }

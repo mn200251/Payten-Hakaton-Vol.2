@@ -134,10 +134,9 @@ private fun nozero(t: Double): String {
     if (res.last() == '.') res = res.substring(0, res.length - 1)
     return res
 }
-var ecr: Long = System.currentTimeMillis() % 1000000
 fun getPaytenRequestJson(base: Double, tip: Double): String {
     //var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"total\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
-    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
+    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"cashier\":\"worker0\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
     req = String.format(req, nozero(base), nozero(tip)) + "}"
 
     //req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":1.6,\"tip\":2.4,\"total\":10,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}}"

@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities.admin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.owner.ui.AddWorkerScreen
+import com.example.owner.ui.AddCategoryScreen
 import com.example.owner.ui.theme.OwnerTheme
 
-class AddWorkerActivity : ComponentActivity() {
+class AddCategoryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,12 +23,10 @@ class AddWorkerActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AddWorkerScreen(onClick = {
-                        id, name, lastName, uri ->
+                    AddCategoryScreen(onAdd = { name, icon ->
                         /*
-                        * TO DO -> check data and insert into data base
-                        * id must be unique for this place
-                        * image required??*/
+                        TO DO -> INSERT INTO DATABASE
+                         */
                     }, modifier = Modifier.fillMaxSize())
                 }
             }

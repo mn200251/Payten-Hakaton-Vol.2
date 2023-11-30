@@ -1,4 +1,4 @@
-package com.example.owner
+package com.example.owner.activities.admin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,14 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.owner.ui.StaticsScreen
+import com.example.owner.ui.EditWorkerScreen
 import com.example.owner.ui.theme.OwnerTheme
 
-class StatisticsActivity : ComponentActivity() {
+class EditWorkerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,8 +20,10 @@ class StatisticsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*TO DO -> IMPLEMENT STATISTICS*/
-                    StaticsScreen()
+                    /*
+                    TO DO Implement statistics
+                     */
+                    EditWorkerScreen()
                 }
             }
         }
