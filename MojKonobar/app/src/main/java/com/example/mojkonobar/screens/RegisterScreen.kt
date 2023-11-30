@@ -21,65 +21,68 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.posaplikacija.stateholders.MojKonobarViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(modifier: Modifier = Modifier) {
+fun RegisterScreen(modifier: Modifier = Modifier, vm:MojKonobarViewModel= viewModel()) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background){
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier
+        ) {
 
-        var inputUsername: String by rememberSaveable { mutableStateOf("") }
-        var inputName: String by rememberSaveable { mutableStateOf("") }
-        var inputLastName: String by rememberSaveable { mutableStateOf("") }
-        var inputImage: Uri? by rememberSaveable { mutableStateOf(null) }
-        var inputEmail: String by rememberSaveable { mutableStateOf("") }
-        var inputPassword: String by rememberSaveable { mutableStateOf("") }
+            var inputUsername: String by rememberSaveable { mutableStateOf("") }
+            var inputName: String by rememberSaveable { mutableStateOf("") }
+            var inputLastName: String by rememberSaveable { mutableStateOf("") }
+            var inputImage: Uri? by rememberSaveable { mutableStateOf(null) }
+            var inputEmail: String by rememberSaveable { mutableStateOf("") }
+            var inputPassword: String by rememberSaveable { mutableStateOf("") }
 
-        Text(text = "Username:")
-        OutlinedTextField(value = inputUsername, onValueChange = {inputUsername = it})
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Username:")
+            OutlinedTextField(value = inputUsername, onValueChange = {inputUsername = it})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        Text(text = "Name:")
-        OutlinedTextField(value = inputName, onValueChange = {inputName = it})
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Name:")
+            OutlinedTextField(value = inputName, onValueChange = {inputName = it})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        Text(text = "Last name:")
-        OutlinedTextField(value = inputLastName, onValueChange = {inputLastName = it})
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Last name:")
+            OutlinedTextField(value = inputLastName, onValueChange = {inputLastName = it})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        Text(text = "Email:")
-        OutlinedTextField(value = inputEmail, onValueChange = {inputEmail = it})
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Email:")
+            OutlinedTextField(value = inputEmail, onValueChange = {inputEmail = it})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        // Text(text = "Image:")
-        // ImageSelector(input = inputImage, onSelect = {inputImage = it}, Modifier.size(200.dp))
-        // Spacer(modifier = Modifier.height(10.dp))
+            // Text(text = "Image:")
+            // ImageSelector(input = inputImage, onSelect = {inputImage = it}, Modifier.size(200.dp))
+            // Spacer(modifier = Modifier.height(10.dp))
 
-        Text(text = "Password:")
-        OutlinedTextField(value = inputPassword, onValueChange = {inputPassword = it})
-        Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Password:")
+            OutlinedTextField(value = inputPassword, onValueChange = {inputPassword = it})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        OutlinedButton(onClick = {
+            OutlinedButton(onClick = {
+                vm.changeScreen(1)
+            }, shape = MaterialTheme.shapes.small) {
+                Text(text = "Register", style = MaterialTheme.typography.labelMedium)
+            }
 
-        }, shape = MaterialTheme.shapes.small) {
-            Text(text = "Register", style = MaterialTheme.typography.labelMedium)
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(text = "Already have an account?")
+            OutlinedButton(
+                onClick =
+                {
+                    vm.changeScreen(0)
+
+                },
+                shape = MaterialTheme.shapes.extraLarge) {
+                Text(text = "Log in here", style = MaterialTheme.typography.labelLarge)
+                }
         }
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Already have an account?")
-        OutlinedButton(
-            onClick =
-            {
-
-            },
-            shape = MaterialTheme.shapes.extraLarge) {
-            Text(text = "Log in here", style = MaterialTheme.typography.labelLarge)
-        }
-    }
-}}
+    }}

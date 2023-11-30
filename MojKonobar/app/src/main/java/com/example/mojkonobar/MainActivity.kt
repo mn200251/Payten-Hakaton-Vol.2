@@ -36,6 +36,7 @@ import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
 import com.example.mojkonobar.screens.MenuScreen
+import com.example.mojkonobar.screens.OrderScreen
 import com.example.mojkonobar.screens.RegisterScreen
 import com.example.mojkonobar.ui.theme.MojKonobarTheme
 import com.example.mojkonobar.ui.theme.Offwhite
@@ -52,83 +53,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
-                ) {var selected1=false
-                    var selected2 by rememberSaveable {
-                        mutableStateOf(1)
-                    }
-                    Scaffold (
-                    bottomBar = {
-                        NavigationBar() {
-                            NavigationBarItem(
-
-                                selected = false ,
-                                onClick = {
-                                    selected2=1
-                                    vm.changeScreen(1)
-                                    },
-                                icon = {  Icon(
-                                    imageVector = if (selected1) {
-                                        Icons.Default.Home
-                                    } else Icons.Outlined.Home,
-                                    contentDescription = "Home",
-                                    tint= Color.Red
-                                ) },
-                                label = { Text(text = "Home")});
-                            NavigationBarItem(
-
-                                selected = false ,
-                                onClick = {
-                                    selected2=2
-                                    vm.changeScreen(2)
-                                     },
-                                icon = {
-                                    Icon(
-                                        imageVector = if (selected1) {
-                                            Icons.Default.PhotoCamera
-                                        } else Icons.Outlined.PhotoCamera,
-                                        contentDescription = "Skeniraj",
-                                        tint= Color.Red
-                                    )
-                                }, label={ Text(text = "QR")});
-                            NavigationBarItem(
-
-                                selected = false ,
-                                onClick = {
-                                    selected1 = true
-                                    selected2=3;
-                                    vm.changeScreen(3)
-                                },
-                                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
-                                icon = {
-                                    Icon(
-                                        imageVector = if (selected1) {
-                                            Icons.Default.Fastfood
-                                        } else Icons.Outlined.Fastfood,
-                                        contentDescription = "FF",
-                                        tint= Color.Red
-                                    )
-                                }, label={ Text(text = "Orders")});
-                            NavigationBarItem(
-
-                                selected = false ,
-                                onClick = {
-                                    selected1=true
-                                    selected2=4
-                                    vm.changeScreen(4)
-                                     },
-                                icon = {
-                                    Icon(
-                                        imageVector = if (selected1) {
-                                            Icons.Default.AccountBox
-                                        } else Icons.Outlined.AccountBox,
-                                        contentDescription = "FF",
-                                        tint= Color.Red
-                                    )
-                                }, label={ Text(text = "Account")})
-                        }}
-
                 ) {
-                                //vm.changeScreen(selected2)
+
+                    //vm.changeScreen(selected2)
                     MojKonobar(this@MainActivity,vm)
 //                    val simpleProgressBar = findViewById<ProgressBar>(com.example.mojkonobar.R.id.simpleProgressBar)
                     //MojKonobar(this)
@@ -136,44 +63,627 @@ class MainActivity : ComponentActivity() {
 //                    simpleProgressBar.visibility = View.VISIBLE
 //                    simpleProgressBar.progress = 50
                 }}
-                }
-            }
-        }}
+        }
+    }
+}
 
 
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 {
     //val viewModel: MojKonobarViewModel = viewModel()
+    var vm=viewModel
     val uiState by viewModel.uiState.collectAsState()
 
+    // viewModel.changeScreen(int)
+    val selected1=true
+
     //uiState.currScreen=int
-    if (uiState.currScreen==1) {
-        // LoginScreen(viewModel, modifier = Modifier)
-        // RegisterScreen(modifier = Modifier)
-        HomeScreen(viewModel, modifier = Modifier, mainActivity)
-    }
-    else if (uiState.currScreen==2){
+
+    if (uiState.currScreen==0){
+
         LoginScreen(viewModel, modifier = Modifier,mainActivity)
     }
-    else if (uiState.currScreen==3){
+    else if(uiState.currScreen==-1){
         RegisterScreen(modifier = Modifier)
+
+    }
+    else if (uiState.currScreen==1) {
+        // LoginScreen(viewModel, modifier = Modifier)
+        // RegisterScreen(modifier = Modifier)
+
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+            HomeScreen(viewModel, modifier = Modifier, mainActivity)}
+    }
+    else if (uiState.currScreen==2){
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+            LoginScreen(viewModel, modifier = Modifier,mainActivity)
+        }}
+    else if (uiState.currScreen==3){
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+        }
+        // RegisterScreen(modifier = Modifier)
+        OrderScreen(viewModel, modifier = Modifier, mainActivity)
+
     }
     else if(uiState.currScreen==4){
-        MenuScreen(viewModel, modifier= Modifier,mainActivity)
-    }
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+
+            MenuScreen(viewModel, modifier= Modifier,mainActivity)
+        }}
     else if(uiState.currScreen==5){
-        ItemsActivity(viewModel,modifier= Modifier,mainActivity)
-    }
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+
+            ItemsActivity(viewModel,modifier= Modifier,mainActivity)
+        }}
     else if(uiState.currScreen==6){
-        MenuScreen(viewModel, modifier= Modifier,mainActivity)
-    }
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+
+            MenuScreen(viewModel, modifier= Modifier,mainActivity)
+        }}
     else if(uiState.currScreen==7){
-        MenuScreen(viewModel, modifier= Modifier,mainActivity)
-    }
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+
+            MenuScreen(viewModel, modifier= Modifier,mainActivity)
+        }}
     else if(uiState.currScreen==8){
-        MenuScreen(viewModel, modifier= Modifier,mainActivity)
-    }
+        Scaffold (
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(2)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(4)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+
+            MenuScreen(viewModel, modifier= Modifier,mainActivity)
+        }}
 }

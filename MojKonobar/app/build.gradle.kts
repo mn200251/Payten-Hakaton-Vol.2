@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.mojkonobar"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -88,5 +88,4 @@ dependencies {
     implementation ("androidx.compose.ui:ui-tooling:1.5.4") // Use the appropriate version
     implementation ("androidx.compose.runtime:runtime-livedata:1.5.4") // Use the appropriate version
     implementation("androidx.compose.material:material-icons-extended")
-
 }

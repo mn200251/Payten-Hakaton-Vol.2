@@ -11,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -71,8 +72,8 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
     iconHashMap[4] = rememberCoffee()
 
     val upperPaddingHashMap = HashMap<Int, Dp>()
-    upperPaddingHashMap[0] = 0.dp
-    upperPaddingHashMap[1] = 0.dp
+    upperPaddingHashMap[0] = 4.dp
+    upperPaddingHashMap[1] = 12.dp
     upperPaddingHashMap[2] = 0.dp
     upperPaddingHashMap[3] = 0.dp
     upperPaddingHashMap[4] = 0.dp
@@ -82,41 +83,43 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
     val letterSizeOpis=13.sp;
     val letterSizePoeni=12.sp;
 
-    LazyColumn {
+    LazyColumn (modifier= modifier.fillMaxHeight(0.9f)) {
         itemsIndexed(items = places) { index, place ->
-            Card(modifier=modifier.background(MaterialTheme.colorScheme.secondary)) {
-                Column(modifier=modifier.background(MaterialTheme.colorScheme.secondary)) {
+            Card() {
+                Column() {
                     Row(
                         modifier = Modifier.padding(
                             start = 0.dp,
                             top = 4.dp,
                             end = 4.dp,
                             bottom = 0.dp
-                        ).background(MaterialTheme.colorScheme.secondary),
+                        ),
                     ) {
 
-                        Column(modifier=modifier.background(MaterialTheme.colorScheme.secondary),) {
+                        Column {
                             Button(onClick = { /*TODO*/ } ,
                                 shape = RectangleShape,
-                                colors = ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
+                                colors = ButtonColors(Color.Transparent,Color.Black,Color.Gray,Color.Gray),// ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
                                 modifier = modifier
                                     .fillMaxSize()
                                     .height(180.dp)
-                                    .background(MaterialTheme.colorScheme.secondary)
                                     ) {
 
                                 Row{
                                     Column(modifier = modifier
-                                        .fillMaxWidth(0.5f).padding(end = 15.dp)) {
+                                        .fillMaxWidth(0.5f)
+                                        .padding(end = 15.dp)) {
 
-                                        val imageModifier = Modifier.requiredHeight(220.dp).requiredWidth(170.dp)
+                                        val imageModifier = Modifier
+                                            .requiredHeight(220.dp)
+                                            .requiredWidth(170.dp)
                                             //.size(150.dp)
                                             .background(Color.Transparent)
 
                                         Image(
                                             painter = painterResource(id = place.imageLink),
                                             contentDescription = null,
-                                            modifier = imageModifier.background(MaterialTheme.colorScheme.secondary),
+                                            modifier = imageModifier
                                         )
 
                                     }
@@ -126,14 +129,14 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                                                 Text(text = place.location, fontSize = letterSizeHeading)
                                             }
                                             Spacer(modifier = Modifier.height(10.dp))
-                                            Row {
+                                            Row (){
                                                 Text(text = place.description, fontSize = letterSizeOpis)
                                             }
                                             Spacer(modifier = modifier.height(10.dp))
                                             Row {
-
-
-                                                    Text(text = ""+ place.currLoyalityPoints + " / " + place.requiredLoyalityPoints+" ",
+                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                    Text(
+                                                        text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
                                                         modifier = Modifier.padding(
                                                             start = 0.dp,
@@ -142,32 +145,33 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                                                             bottom = 0.dp
                                                         ),
                                                     )
-
-
-
+                                                }
+                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
                                                     //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
                                                             (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat())
                                                         },
-                                                        color = MaterialTheme.colorScheme.primary,
+                                                        color= if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
 //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
 //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
 //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
 //                                                        else Color.Blue,
                                                         trackColor = Color.Gray,
-                                                        modifier = Modifier.fillMaxWidth(0.7f).padding(
-                                                            start = 0.dp,
-                                                            top = 13.dp,
-                                                            end = 0.dp,
-                                                            bottom = 0.dp
-                                                        ),
+                                                        modifier = Modifier
+                                                            .fillMaxWidth(0.7f)
+                                                            .padding(
+                                                                start = 0.dp,
+                                                                top = 13.dp,
+                                                                end = 0.dp,
+                                                                bottom = 0.dp
+                                                            ),
                                                         strokeCap = StrokeCap.Butt
                                                     )
-
-
-
+                                                }
+                                                Column() {
                                                     iconHashMap[index]?.let { Icon(it, "") }
+                                                }
 
                                             }
 

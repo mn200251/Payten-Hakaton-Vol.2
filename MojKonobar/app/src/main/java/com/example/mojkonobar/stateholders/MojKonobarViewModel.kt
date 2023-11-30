@@ -22,7 +22,7 @@ data class LoginState(
     var passwordText: String = "",
     var errorMessage: String = "",
 
-    var currScreen: Int = 1,
+    var currScreen: Int = 0,
     var currCategory: Int=0,
     var loginUsername: String = "payten",
     var loginPassword: String = "123",
@@ -37,7 +37,7 @@ var places: List<Place> = listOf(
     Place(2, "rabat@gmail.com", "123", R.drawable.poncho, "Poncho", "Lepo mesto za studente da uzivaju i jedu :)", 9, 100, Icons.Rounded.Star),
     Place(3, "etf@gmail.com", "123", R.drawable.kst, "KST", "Klub studenata tehnike - Dom svih studenata", 200, 200, Icons.Rounded.Add),
     Place(4, "bucko@gmail.com", "123", R.drawable.bucko, "Bucko", "Bucko pizza - najbolja i najfinija pizza u kraju. Svrati kad god.", 367, 500, Icons.Rounded.Add),
-    Place(5, "tramvaj@gmail.com", "123", R.drawable.tramvaj, "Tramvaj ", "Osvezen novim idejama ponovo otvara svoja vrata ljubiteljima dobrog piva i kvalitetne muzike.", 500, 500, Icons.Rounded.Add),
+    Place(5, "tramvaj@gmail.com", "123", R.drawable.tramvaj, "Tramvaj ", "Osvezen novim idejama ponovo otvara svoja vrata ljubiteljima piva.", 500, 500, Icons.Rounded.Add),
 )
 
 

@@ -32,45 +32,47 @@ import com.example.posaplikacija.stateholders.MojKonobarViewModel
 fun LoginScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier = Modifier, context: Context) {
 
     val uiState by viewModel.uiState.collectAsState()
-   Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background){
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-    ) {
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background){
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier
+        ) {
 
-        Text(text = "Username")
-        OutlinedTextField(value = uiState.usernameText, onValueChange = {viewModel.updateUsernameText(it)})
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(text = "Password")
-        OutlinedTextField(value = uiState.passwordText, onValueChange = {viewModel.updatePasswordText(it)})
-        Spacer(modifier = Modifier.height(10.dp))
-
-        if (uiState.errorMessage != "")
-        {
+            Text(text = "Username")
+            OutlinedTextField(value = uiState.usernameText, onValueChange = {viewModel.updateUsernameText(it)})
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = uiState.errorMessage, style = MaterialTheme.typography.labelMedium,
-                color = Color.Red)
-        }
+            Text(text = "Password")
+            OutlinedTextField(value = uiState.passwordText, onValueChange = {viewModel.updatePasswordText(it)})
+            Spacer(modifier = Modifier.height(10.dp))
 
-        OutlinedButton(
-            onClick =
+            if (uiState.errorMessage != "")
             {
-                viewModel.tryLogin()
-            },
-            shape = MaterialTheme.shapes.small) {
-            Text(text = "Log in", style = MaterialTheme.typography.labelMedium,)
-        }
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(text = uiState.errorMessage, style = MaterialTheme.typography.labelMedium,
+                    color = Color.Red)
+            }
 
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Don't have an account?")
-        OutlinedButton(
-            onClick =
-            {
+            OutlinedButton(
+                onClick =
+                {
+                    viewModel.tryLogin()
+                    viewModel.changeScreen(0)
+                },
+                shape = MaterialTheme.shapes.small) {
+                Text(text = "Log in", style = MaterialTheme.typography.labelMedium,)
+            }
 
-            },
-            shape = MaterialTheme.shapes.extraLarge) {
-            Text(text = "Register here", style = MaterialTheme.typography.labelLarge)
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(text = "Don't have an account?")
+            OutlinedButton(
+                onClick =
+                {
+                    viewModel.changeScreen(-1)
+
+                },
+                shape = MaterialTheme.shapes.extraLarge) {
+                Text(text = "Register here", style = MaterialTheme.typography.labelLarge)
+                }
         }
-    }
-}}
+    }}
