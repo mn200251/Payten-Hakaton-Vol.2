@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.ArrowBackIosNew
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -22,10 +23,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.posaplikacija.stateholders.MojKonobarViewModel
 
 
 @Composable
-fun TopBar(modifier: Modifier, text: String, backScreenNumber: Int)
+fun TopBar(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier, text: String, backScreenNumber: Int, hasButton: Boolean = true)
 {
     Box(
         modifier = Modifier
@@ -45,13 +49,17 @@ fun TopBar(modifier: Modifier, text: String, backScreenNumber: Int)
             ) {
                 Row {
                     Spacer(modifier = modifier.width(4.dp))
-                    OutlinedButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            Icons.Sharp.ArrowBackIosNew,
-                            contentDescription = "",
-                            tint = Color.Black,
-                            modifier = modifier.background(Color.Transparent)
-                        )
+                    if(hasButton) {
+                        OutlinedButton(onClick = { viewModel.changeScreen(backScreenNumber) },
+
+                        ) {
+                            Icon(
+                                Icons.Sharp.ArrowBackIosNew,
+                                contentDescription = "",
+                                tint = Color.Black,
+                                modifier = modifier.background(Color.Transparent)
+                            )
+                        }
                     }
                     Spacer(modifier = modifier.width(15.dp))
 

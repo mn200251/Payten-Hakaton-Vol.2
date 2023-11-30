@@ -5,8 +5,11 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.addCallback
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -37,6 +40,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mojkonobar.composables.PreviewViewComposable
+import com.example.mojkonobar.composables.TopBar
+import com.example.mojkonobar.screens.AccountScreen
 import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
@@ -46,11 +51,21 @@ import com.example.mojkonobar.screens.RegisterScreen
 import com.example.mojkonobar.ui.theme.MojKonobarTheme
 import com.example.mojkonobar.ui.theme.Offwhite
 import com.example.posaplikacija.stateholders.MojKonobarViewModel
+import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.onBackPressedDispatcher.addCallback{
+            val vm:MojKonobarViewModel by viewModels()
+            if(vm.uiState.value.currScreen<=1){
+                exitProcess(0)
+            }else{
+                vm.changeScreen(1)
+            }
+        }
         setContent {
             MojKonobarTheme {
                 val vm: MojKonobarViewModel=viewModel()
@@ -84,6 +99,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
     var vm=viewModel
     val uiState by viewModel.uiState.collectAsState()
 
+    Log.d("currScreen",uiState.currScreen.toString())
     // viewModel.changeScreen(int)
     val selected1=true
 
@@ -102,6 +118,9 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
         // RegisterScreen(modifier = Modifier)
 
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Home", backScreenNumber = 0, hasButton = false)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -165,7 +184,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -183,6 +202,9 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
     }
     else if (uiState.currScreen==2){
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Home", backScreenNumber = 1)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -205,7 +227,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -238,7 +260,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -278,7 +300,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -311,7 +333,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -332,6 +354,9 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
     }
     else if(uiState.currScreen==4){
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Home", backScreenNumber = 1)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -354,7 +379,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -387,7 +412,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -406,6 +431,9 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
         }}
     else if(uiState.currScreen==5){
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Item", backScreenNumber = 4)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -428,7 +456,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -461,7 +489,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -480,6 +508,9 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
         }}
     else if(uiState.currScreen==6){
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Item", backScreenNumber = 1)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -502,7 +533,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -535,7 +566,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -554,6 +585,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
         }}
     else if(uiState.currScreen==7){
         Scaffold (
+
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -576,7 +608,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -609,7 +641,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(
@@ -627,10 +659,99 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
             MenuScreen(viewModel, modifier= Modifier,mainActivity)
         }}
     else if (uiState.currScreen == 10) {
-        PreviewViewComposable()
+        PreviewViewComposable(vm)
+    }
+    else if (uiState.currScreen == 11) {
+
+        Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Profile", backScreenNumber = 1)
+            },
+            bottomBar = {
+                NavigationBar() {
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(1)
+                        },
+                        icon = {  Icon(
+                            imageVector = if (selected1) {
+                                Icons.Default.Home
+                            } else Icons.Outlined.Home,
+                            contentDescription = "Home",
+                            tint= Color.Red
+                        ) },
+                        label = { Text(text = "Home")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+                            /*
+                            val REQUEST_IMAGE_CAPTURE = 1
+                            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            try {
+                                startActivityForResult(mainActivity, takePictureIntent, REQUEST_IMAGE_CAPTURE, null)
+                            } catch (e: ActivityNotFoundException) {
+                                // display error state to the user
+                            }*/
+
+
+                            vm.changeScreen(10)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.PhotoCamera
+                                } else Icons.Outlined.PhotoCamera,
+                                contentDescription = "Skeniraj",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "QR")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+                            vm.changeScreen(3)
+                        },
+                        //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.Fastfood
+                                } else Icons.Outlined.Fastfood,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Orders")});
+                    NavigationBarItem(
+
+                        selected = false ,
+                        onClick = {
+
+                            vm.changeScreen(11)
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (selected1) {
+                                    Icons.Default.AccountBox
+                                } else Icons.Outlined.AccountBox,
+                                contentDescription = "FF",
+                                tint= Color.Red
+                            )
+                        }, label={ Text(text = "Account")})
+                }}
+
+        ) {
+            AccountScreen(viewModel = viewModel, modifier = Modifier, context = mainActivity)
+        }
     }
     else if(uiState.currScreen==8){
         Scaffold (
+            topBar={
+                TopBar(modifier = Modifier, text = "Item", backScreenNumber = 1)
+            },
             bottomBar = {
                 NavigationBar() {
                     NavigationBarItem(
@@ -653,7 +774,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(2)
+                            vm.changeScreen(10)
                         },
                         icon = {
                             Icon(
@@ -686,7 +807,7 @@ fun  MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
                         selected = false ,
                         onClick = {
 
-                            vm.changeScreen(4)
+                            vm.changeScreen(11)
                         },
                         icon = {
                             Icon(

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import com.example.posaplikacija.stateholders.MojKonobarViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -53,7 +54,7 @@ import java.util.concurrent.Executors
 
 @androidx.camera.core.ExperimentalGetImage
 @Composable
-fun PreviewViewComposable() {
+fun PreviewViewComposable(vm: MojKonobarViewModel) {
     AndroidView({ context ->
         val cameraExecutor = Executors.newSingleThreadExecutor()
         val previewView = PreviewView(context).also {
@@ -76,6 +77,7 @@ fun PreviewViewComposable() {
                 .also {
                     it.setAnalyzer(cameraExecutor, BarcodeAnalyser{
                         Toast.makeText(context, "Barcode found", Toast.LENGTH_SHORT).show()
+                        vm.changeScreen(4)
                     })
                 }
 
@@ -99,9 +101,7 @@ fun PreviewViewComposable() {
             .size(width = 250.dp, height = 250.dp))
 }
 
-
 /*
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -199,9 +199,5 @@ dependencies {
     implementation ("androidx.camera:camera-view:${camerax_version}")
     implementation ("com.google.mlkit:barcode-scanning:17.0.3")
     implementation ("com.google.accompanist:accompanist-permissions:0.32.0")
-}
+}*/
 
-
-
-
- */

@@ -75,7 +75,7 @@ fun OrderScreen(
     val totalPriceSize = 20.sp
 
     Column {
-        TopBar(modifier = Modifier, text = "My orders", 1)
+        TopBar(modifier = Modifier, text = "My orders", backScreenNumber =  1)
 
         LazyColumn (modifier= modifier.fillMaxHeight(0.9f)) {
             itemsIndexed(items = orders) { index, order ->

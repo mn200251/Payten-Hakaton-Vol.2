@@ -82,59 +82,84 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
     val letterSizeHeading=23.sp;
     val letterSizeOpis=13.sp;
     val letterSizePoeni=12.sp;
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(65.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {}
+        LazyColumn(modifier = modifier.fillMaxHeight(0.9f)) {
+            itemsIndexed(items = places) { index, place ->
+                Card() {
+                    Column() {
+                        Row(
+                            modifier = Modifier.padding(
+                                start = 0.dp,
+                                top = 4.dp,
+                                end = 4.dp,
+                                bottom = 0.dp
+                            ),
+                        ) {
 
-    LazyColumn (modifier= modifier.fillMaxHeight(0.9f)) {
-        itemsIndexed(items = places) { index, place ->
-            Card() {
-                Column() {
-                    Row(
-                        modifier = Modifier.padding(
-                            start = 0.dp,
-                            top = 4.dp,
-                            end = 4.dp,
-                            bottom = 0.dp
-                        ),
-                    ) {
+                            Column {
+                                Button(onClick = { /*TODO*/ },
+                                    shape = RectangleShape,
+                                    colors = ButtonColors(
+                                        Color.Transparent,
+                                        Color.Black,
+                                        Color.Gray,
+                                        Color.Gray
+                                    ),// ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
+                                    modifier = modifier
+                                        .fillMaxSize()
+                                        .height(180.dp)
+                                ) {
 
-                        Column {
-                            Button(onClick = { /*TODO*/ } ,
-                                shape = RectangleShape,
-                                colors = ButtonColors(Color.Transparent,Color.Black,Color.Gray,Color.Gray),// ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
-                                modifier = modifier
-                                    .fillMaxSize()
-                                    .height(180.dp)
-                                    ) {
+                                    Row {
+                                        Column(
+                                            modifier = modifier
+                                                .fillMaxWidth(0.5f)
+                                                .padding(end = 15.dp)
+                                        ) {
 
-                                Row{
-                                    Column(modifier = modifier
-                                        .fillMaxWidth(0.5f)
-                                        .padding(end = 15.dp)) {
+                                            val imageModifier = Modifier
+                                                .requiredHeight(220.dp)
+                                                .requiredWidth(170.dp)
+                                                //.size(150.dp)
+                                                .background(Color.Transparent)
 
-                                        val imageModifier = Modifier
-                                            .requiredHeight(220.dp)
-                                            .requiredWidth(170.dp)
-                                            //.size(150.dp)
-                                            .background(Color.Transparent)
+                                            Image(
+                                                painter = painterResource(id = place.imageLink),
+                                                contentDescription = null,
+                                                modifier = imageModifier
+                                            )
 
-                                        Image(
-                                            painter = painterResource(id = place.imageLink),
-                                            contentDescription = null,
-                                            modifier = imageModifier
-                                        )
-
-                                    }
-                                        Column(modifier = modifier
-                                            .fillMaxWidth()) {
+                                        }
+                                        Column(
+                                            modifier = modifier
+                                                .fillMaxWidth()
+                                        ) {
                                             Row {
-                                                Text(text = place.location, fontSize = letterSizeHeading)
+                                                Text(
+                                                    text = place.location,
+                                                    fontSize = letterSizeHeading
+                                                )
                                             }
                                             Spacer(modifier = Modifier.height(10.dp))
-                                            Row (){
-                                                Text(text = place.description, fontSize = letterSizeOpis)
+                                            Row() {
+                                                Text(
+                                                    text = place.description,
+                                                    fontSize = letterSizeOpis
+                                                )
                                             }
                                             Spacer(modifier = modifier.height(10.dp))
                                             Row {
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     Text(
                                                         text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
@@ -146,13 +171,17 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
                                                         ),
                                                     )
                                                 }
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
                                                             (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat())
                                                         },
-                                                        color= if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
+                                                        color = if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
 //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
 //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
 //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
@@ -182,18 +211,19 @@ fun HomeScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
 //                                            }
                                         }
                                     }
-                           }
+                                }
+                            }
                         }
+                        HorizontalDivider(
+                            modifier = modifier.fillMaxWidth(),
+                            thickness = 1.dp,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
                     }
-                    HorizontalDivider(
-                        modifier = modifier.fillMaxWidth(),
-                        thickness = 1.dp,
-                        color = MaterialTheme.colorScheme.tertiary
-                    )
                 }
             }
-        }
 
+        }
+        Spacer(modifier = modifier.height(60.dp))
     }
-    Spacer(modifier = modifier.height(60.dp))
 }
