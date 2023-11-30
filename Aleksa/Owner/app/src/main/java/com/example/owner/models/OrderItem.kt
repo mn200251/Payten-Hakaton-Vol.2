@@ -13,7 +13,7 @@ class OrderItem(
     val name: String = "",
     val price: Double = 0.0,
     val dateOrdered: LocalDateTime = getDate("2023-11-28 11:59:00"),
-    val dateServed: LocalDateTime? = null
+    var dateServed: LocalDateTime? = null
 ) {
     public val served: Boolean
         get() {

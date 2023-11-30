@@ -18,7 +18,7 @@
                 <action android:name="paytenreceive"></action>
             </intent-filter>
         </receiver>
-        <activity android:name="com.example.myapplication.StatisticsActivity"
+        <activity android:name="com.example.owner.statistics.StatisticsActivity"
             android:exported="false"
             android:label="@string/title_activity_statistics"
             android:theme="@style/Theme.Owner" />

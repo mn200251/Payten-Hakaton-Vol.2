@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.owner.statistics
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column

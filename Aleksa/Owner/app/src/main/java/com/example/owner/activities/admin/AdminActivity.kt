@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.myapplication.StatisticsActivity
+import com.example.owner.statistics.StatisticsActivity
 import com.example.owner.ui.AdminHomeScreen
 import com.example.owner.ui.theme.OwnerTheme
 

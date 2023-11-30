@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.owner.statistics
 
 import androidx.lifecycle.ViewModel
 import co.yml.charts.common.model.Point

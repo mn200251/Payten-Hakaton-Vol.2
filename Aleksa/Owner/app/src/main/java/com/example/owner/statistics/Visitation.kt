@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.owner.statistics
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
