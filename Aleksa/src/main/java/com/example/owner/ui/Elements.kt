@@ -34,6 +34,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -150,7 +151,7 @@ fun WorkerButton(worker: Worker, onViewStatistics: () -> Unit, modifier: Modifie
             contentDescription = worker.name,
             modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
-                .height(150.dp),
+                .width(150.dp),
             contentScale = ContentScale.Crop)
         Column(
             modifier = Modifier.padding(15.dp)
@@ -189,14 +190,14 @@ fun ItemButton(item: Item, onEdit: () -> Unit, modifier: Modifier = Modifier) {
             Text(text = item.name, style = MaterialTheme.typography.titleSmall)
             Text(text = if (fullDescription) item.description else shorten(item.description))
             Spacer(modifier = Modifier.height(10.dp))
+            if (item.description.length > 70)
+                Text(text = if (fullDescription) "Show less" else "Show more",
+                    color = Color.Blue,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .clickable { fullDescription = !fullDescription }
+                )
             Row {
-                if (item.description.length > 70)
-                    Text(text = if (fullDescription) "Show less" else "Show more",
-                        color = Color.Blue,
-                        textDecoration = TextDecoration.Underline,
-                        modifier = Modifier
-                            .clickable { fullDescription = !fullDescription }
-                    )
                 Icon(imageVector = Icons.Default.Star, contentDescription = "Loyalty points")
                 Text(text = "${item.loyaltyPoints} loyalty")
                 Spacer(modifier = Modifier.weight(1f))
@@ -266,7 +267,7 @@ fun OrderButton(order: Order, workerId: Int, onTake: () -> Unit, onDetails: () -
             else modifier
     ) {
         Row {
-            Text(text = order.table ?: "Takeout for '${order.username}'",
+            Text(text = order.table ?: "Takeout for\n'${order.username}'",
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(10.dp),
                 textDecoration = TextDecoration.Underline)
@@ -311,7 +312,7 @@ fun OrderItemElement(orderItem: OrderItem, onServe: () -> Unit, modifier: Modifi
     ) {
         Column(modifier = Modifier
             .padding(5.dp)
-            .width(275.dp)) {
+            .width(250.dp)) {
             Text(text = orderItem.name, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(10.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -325,10 +326,10 @@ fun OrderItemElement(orderItem: OrderItem, onServe: () -> Unit, modifier: Modifi
         val enabled = orderItem.served == false
         OutlinedButton(onClick = onServe, enabled = enabled, shape = MaterialTheme.shapes.small,
             colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.inversePrimary, disabledContainerColor = Color.LightGray),
-            modifier = Modifier.size(120.dp)) {
-            val text = if (enabled) "Serve" else "Served"
+            modifier = Modifier.size(100.dp)) {
+            //val text = if (enabled) "Serve" else "Served"
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-                Text(text, style = MaterialTheme.typography.labelMedium)
+                Icon(imageVector = Icons.Default.Check, contentDescription = "Served")
             }
         }
 

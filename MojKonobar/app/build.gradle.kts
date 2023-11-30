@@ -87,4 +87,6 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.5.4") // Use the appropriate version
     implementation ("androidx.compose.ui:ui-tooling:1.5.4") // Use the appropriate version
     implementation ("androidx.compose.runtime:runtime-livedata:1.5.4") // Use the appropriate version
+    implementation("androidx.compose.material:material-icons-extended")
+
 }

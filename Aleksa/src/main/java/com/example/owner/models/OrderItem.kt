@@ -17,7 +17,7 @@ class OrderItem(
 ) {
     public val served: Boolean
         get() {
-            return dateServed == null
+            return dateServed != null
         }
 
     public val waitTimeSecs: Long
