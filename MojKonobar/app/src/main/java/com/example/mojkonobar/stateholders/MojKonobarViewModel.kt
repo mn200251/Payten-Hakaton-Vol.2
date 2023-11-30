@@ -10,6 +10,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.mojkonobar.R
 import com.example.mojkonobar.classes.Place
+import com.example.mojkonobar.screens.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.parcelize.Parcelize
@@ -22,7 +23,7 @@ data class LoginState(
     var errorMessage: String = "",
 
     var currScreen: Int = 1,
-
+    var currCategory: Int=0,
     var loginUsername: String = "payten",
     var loginPassword: String = "123",
 
@@ -69,13 +70,22 @@ class MojKonobarViewModel(private val savedStateHandle: SavedStateHandle) : View
         ) }
     }
 
-    fun changeScreen(newScreen: Int)
+    public fun changeScreen(newScreen: Int)
     {
         savedStateHandle[UI_STATE_KEY] = _uiState2.value.copy(
             currScreen = newScreen
         )
         _uiState1.update { currentCaloriesUiState -> currentCaloriesUiState.copy(
             currScreen = newScreen
+        ) }
+    }
+    public fun changeCategory(newScreen: Int)
+    {
+        savedStateHandle[UI_STATE_KEY] = _uiState2.value.copy(
+            currCategory =  newScreen
+        )
+        _uiState1.update { currentCaloriesUiState -> currentCaloriesUiState.copy(
+            currCategory = newScreen
         ) }
     }
 

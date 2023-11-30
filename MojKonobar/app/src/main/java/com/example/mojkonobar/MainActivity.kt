@@ -32,7 +32,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mojkonobar.screens.HomeScreen
+import com.example.mojkonobar.screens.ItemsActivity
 import com.example.mojkonobar.screens.LoginScreen
+import com.example.mojkonobar.screens.MenuScreen
 import com.example.mojkonobar.screens.RegisterScreen
 import com.example.mojkonobar.ui.theme.MojKonobarTheme
 import com.example.posaplikacija.stateholders.MojKonobarViewModel
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MojKonobarTheme {
+                val vm: MojKonobarViewModel=viewModel()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -59,6 +62,7 @@ class MainActivity : ComponentActivity() {
                                 selected = false ,
                                 onClick = {
                                     selected2=1
+                                    vm.changeScreen(1)
                                     },
                                 icon = {  Icon(
                                     imageVector = if (selected1) {
@@ -73,6 +77,7 @@ class MainActivity : ComponentActivity() {
                                 selected = false ,
                                 onClick = {
                                     selected2=2
+                                    vm.changeScreen(2)
                                      },
                                 icon = {
                                     Icon(
@@ -89,6 +94,7 @@ class MainActivity : ComponentActivity() {
                                 onClick = {
                                     selected1 = true
                                     selected2=3;
+                                    vm.changeScreen(3)
                                 },
                                         //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
                                 icon = {
@@ -106,6 +112,7 @@ class MainActivity : ComponentActivity() {
                                 onClick = {
                                     selected1=true
                                     selected2=4
+                                    vm.changeScreen(4)
                                      },
                                 icon = {
                                     Icon(
@@ -119,9 +126,10 @@ class MainActivity : ComponentActivity() {
                         }}
 
                 ) {
-                    MojKonobar(this@MainActivity,selected2)
+                                //vm.changeScreen(selected2)
+                    MojKonobar(this@MainActivity,vm)
 //                    val simpleProgressBar = findViewById<ProgressBar>(com.example.mojkonobar.R.id.simpleProgressBar)
-                    MojKonobar(this)
+                    //MojKonobar(this)
 //                    val simpleProgressBar: ProgressBar = findViewById(R.id.progressBar)
 //                    simpleProgressBar.visibility = View.VISIBLE
 //                    simpleProgressBar.progress = 50
@@ -134,11 +142,11 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun MojKonobar(mainActivity: MainActivity, int:Int)
+fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 {
-    val viewModel: MojKonobarViewModel = viewModel()
+    //val viewModel: MojKonobarViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
-    uiState.currScreen=int
+   // viewModel.changeScreen(int)
     if (uiState.currScreen==1) {
         // LoginScreen(viewModel, modifier = Modifier)
         // RegisterScreen(modifier = Modifier)
@@ -149,5 +157,20 @@ fun MojKonobar(mainActivity: MainActivity, int:Int)
     }
     else if (uiState.currScreen==3){
         RegisterScreen(modifier = Modifier)
+    }
+    else if(uiState.currScreen==4){
+        MenuScreen(viewModel, modifier= Modifier,mainActivity)
+    }
+    else if(uiState.currScreen==5){
+        ItemsActivity(viewModel,modifier= Modifier,mainActivity)
+    }
+    else if(uiState.currScreen==6){
+        MenuScreen(viewModel, modifier= Modifier,mainActivity)
+    }
+    else if(uiState.currScreen==7){
+        MenuScreen(viewModel, modifier= Modifier,mainActivity)
+    }
+    else if(uiState.currScreen==8){
+        MenuScreen(viewModel, modifier= Modifier,mainActivity)
     }
 }
