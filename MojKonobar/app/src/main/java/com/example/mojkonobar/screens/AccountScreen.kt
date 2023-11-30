@@ -1,6 +1,7 @@
 package com.example.mojkonobar.screens
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -216,8 +217,14 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     Button(
                                                         onClick = {
                                                             when (place.location) {
-                                                                "KST" -> rewards = 3
-                                                                "Tramvaj " -> rewards = 4
+                                                                "KST" -> {
+                                                                    rewards = 3
+                                                                    Toast.makeText(context, "Reward claimed", Toast.LENGTH_SHORT).show()
+                                                                }
+                                                                "Tramvaj " -> {
+                                                                    rewards = 4
+                                                                    Toast.makeText(context, "Reward claimed", Toast.LENGTH_SHORT).show()
+                                                                }
                                                             }
                                                         }, shape = RoundedCornerShape(10),
                                                         modifier = Modifier
