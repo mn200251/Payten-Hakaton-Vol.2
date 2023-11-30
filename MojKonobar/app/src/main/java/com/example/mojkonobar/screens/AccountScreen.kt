@@ -247,7 +247,7 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                             "Richard Gyros" -> Text(text = "Receive free gyros, coca-cola, pepsi and much more :)")
                                             "Poncho" -> Text(text = "Receive free pica, coca-cola, burger,...")
                                             "KST" -> Text(text = "Get free tickets for best parties")
-                                            "Bucko" -> Text(text = "Try your luck for free pica or dring")
+                                            "Bucko" -> Text(text = "Try your luck for free pica or drink")
                                             "Tramvaj " -> Text(text = "Come and get a free bier")
                                         }
                                     }
@@ -295,7 +295,7 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     )
                                                 ) {
                                                     Text(
-                                                        text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
+                                                        text = "" + 0 + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
                                                         modifier = Modifier.padding(
                                                             start = 0.dp,
@@ -378,7 +378,7 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     )
                                                 ) {
                                                     Text(
-                                                        text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
+                                                        text = "" + 0 + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
                                                         modifier = Modifier.padding(
                                                             start = 0.dp,
