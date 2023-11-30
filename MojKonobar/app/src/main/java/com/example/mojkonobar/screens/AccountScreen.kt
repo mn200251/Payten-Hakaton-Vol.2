@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -77,10 +78,15 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
     val letterSizeHeading=23.sp;
     val letterSizeOpis=13.sp;
     val letterSizePoeni=12.sp;
-
+    Column{
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .height(65.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ){}
     LazyColumn (modifier= modifier.fillMaxHeight(0.9f)) {
         item {
-            Row (modifier = Modifier.fillMaxWidth().padding(top = 30.dp, bottom = 10.dp)){
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 30.dp, bottom = 10.dp)) {
                 Text(text = "", modifier = Modifier.weight(0.3f))
                 Image(
                     painter = painterResource(id = R.drawable.hakatonwiner),
@@ -96,10 +102,12 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
             }
         }
         item {
-            Row (modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)){
+            Row(modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)) {
                 Text(text = "", modifier = Modifier.weight(0.3f))
-                Text(text = "User Name", modifier = Modifier.weight(0.4f),
-                    fontSize = 30.sp, textAlign = TextAlign.Center)
+                Text(
+                    text = "User Name", modifier = Modifier.weight(0.4f),
+                    fontSize = 30.sp, textAlign = TextAlign.Center
+                )
                 Text(text = "", modifier = Modifier.weight(0.3f))
             }
         }
@@ -115,48 +123,57 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                         ),
                     ) {
 
-                        var rewards by remember{
+                        var rewards by remember {
                             mutableStateOf(1)
                         }
                         var activated by rememberSaveable {
                             mutableStateOf(0)
                         }
                         Column {
-                            Button(onClick = {
-                                if (rewards == 3 || rewards == 4) {
-                                    if (place.location == "KST") {
-                                        activated = 1
-                                        rewards = 5
-                                    }
-                                    else {
-                                        activated = 1
-                                        rewards = 6
-                                    }
-                                }
-                                else if (rewards == 1 && activated == 0)
-                                    rewards = 2
-                                else if (activated == 0) rewards = 1
-                             },
+                            Button(
+                                onClick = {
+                                    if (rewards == 3 || rewards == 4) {
+                                        if (place.location == "KST") {
+                                            activated = 1
+                                            rewards = 5
+                                        } else {
+                                            activated = 1
+                                            rewards = 6
+                                        }
+                                    } else if (rewards == 1 && activated == 0)
+                                        rewards = 2
+                                    else if (activated == 0) rewards = 1
+                                },
                                 shape = RectangleShape,
                                 colors = ButtonColors(
                                     Color.Transparent,
                                     Color.Black,
                                     Color.Gray,
-                                    Color.Gray),// ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
+                                    Color.Gray
+                                ),// ButtonColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary,MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.tertiary),
                                 modifier = modifier
                                     .fillMaxSize()
                                     .height(100.dp)
                             ) {
 
                                 if (rewards == 1) {
-                                    Row{
-                                        Column(modifier = modifier
-                                            .fillMaxWidth()) {
+                                    Row {
+                                        Column(
+                                            modifier = modifier
+                                                .fillMaxWidth()
+                                        ) {
                                             Row {
-                                                Text(text = place.location, fontSize = letterSizeHeading)
+                                                Text(
+                                                    text = place.location,
+                                                    fontSize = letterSizeHeading
+                                                )
                                             }
                                             Row {
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     Text(
                                                         text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
@@ -168,17 +185,21 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                         ),
                                                     )
                                                 }
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
                                                             (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat())
                                                         },
-                                                        color= if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
-    //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
-    //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
-    //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
-    //                                                        else Color.Blue,
+                                                        color = if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
+                                                        //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
+                                                        //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
+                                                        //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
+                                                        //                                                        else Color.Blue,
                                                         trackColor = Color.Gray,
                                                         modifier = Modifier
                                                             .fillMaxWidth(0.7f)
@@ -192,25 +213,26 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     )
                                                 }
                                                 Column() {
-                                                    Button(onClick = {
-                                                         when (place.location) {
-                                                             "KST" -> rewards = 3
-                                                             "Tramvaj " -> rewards = 4
-                                                         }
-                                                    }, shape = RoundedCornerShape(10),
+                                                    Button(
+                                                        onClick = {
+                                                            when (place.location) {
+                                                                "KST" -> rewards = 3
+                                                                "Tramvaj " -> rewards = 4
+                                                            }
+                                                        }, shape = RoundedCornerShape(10),
                                                         modifier = Modifier
                                                             .width(70.dp)
                                                             .height(50.dp)
                                                             .padding(start = 20.dp)
-                                                        ) {
+                                                    ) {
                                                         Image(
-                                                        painter = painterResource(id = R.drawable.gitf),
-                                                        contentDescription = null,
-                                                        modifier = Modifier
-                                                            .requiredHeight(50.dp)
-                                                            .requiredWidth(50.dp)
-                                                            //.size(150.dp)
-                                                            .background(Color.Transparent)
+                                                            painter = painterResource(id = R.drawable.gitf),
+                                                            contentDescription = null,
+                                                            modifier = Modifier
+                                                                .requiredHeight(50.dp)
+                                                                .requiredWidth(50.dp)
+                                                                //.size(150.dp)
+                                                                .background(Color.Transparent)
                                                         )
 
                                                     }
@@ -241,8 +263,7 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                 .background(Color.Transparent)
                                         )
                                     }
-                                }
-                                else if (rewards == 4) {
+                                } else if (rewards == 4) {
                                     Row {
                                         Image(
                                             painter = painterResource(id = R.drawable.cocacola),
@@ -254,17 +275,25 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                 .background(Color.Transparent)
                                         )
                                     }
-                                }
-                                else if (rewards == 5) {
+                                } else if (rewards == 5) {
                                     // KST
-                                    Row{
-                                        Column(modifier = modifier
-                                            .fillMaxWidth()) {
+                                    Row {
+                                        Column(
+                                            modifier = modifier
+                                                .fillMaxWidth()
+                                        ) {
                                             Row {
-                                                Text(text = place.location, fontSize = letterSizeHeading)
+                                                Text(
+                                                    text = place.location,
+                                                    fontSize = letterSizeHeading
+                                                )
                                             }
                                             Row {
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     Text(
                                                         text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
@@ -276,13 +305,17 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                         ),
                                                     )
                                                 }
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
-                                                                   0f
+                                                            0f
                                                         },
-                                                        color= if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
+                                                        color = if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
                                                         //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
                                                         //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
                                                         //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
@@ -300,8 +333,9 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     )
                                                 }
                                                 Column() {
-                                                    Button(onClick = {
-                                                    }, shape = RoundedCornerShape(10),
+                                                    Button(
+                                                        onClick = {
+                                                        }, shape = RoundedCornerShape(10),
                                                         modifier = Modifier
                                                             .width(70.dp)
                                                             .height(50.dp)
@@ -324,17 +358,25 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                         }
                                     }
 
-                                }
-                                else if (rewards == 6) {
+                                } else if (rewards == 6) {
                                     // TRAMVAJ
-                                    Row{
-                                        Column(modifier = modifier
-                                            .fillMaxWidth()) {
+                                    Row {
+                                        Column(
+                                            modifier = modifier
+                                                .fillMaxWidth()
+                                        ) {
                                             Row {
-                                                Text(text = place.location, fontSize = letterSizeHeading)
+                                                Text(
+                                                    text = place.location,
+                                                    fontSize = letterSizeHeading
+                                                )
                                             }
                                             Row {
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     Text(
                                                         text = "" + place.currLoyalityPoints + " / " + place.requiredLoyalityPoints + " ",
                                                         fontSize = letterSizePoeni,
@@ -346,13 +388,17 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                         ),
                                                     )
                                                 }
-                                                Column(modifier= modifier.padding(top= upperPaddingHashMap[index] ?: 0.dp)) {
+                                                Column(
+                                                    modifier = modifier.padding(
+                                                        top = upperPaddingHashMap[index] ?: 0.dp
+                                                    )
+                                                ) {
                                                     //Spacer(modifier = modifier.height(upperPaddingHashMap[index] ?: 10.dp))
                                                     LinearProgressIndicator(
                                                         progress = {
                                                             0f
                                                         },
-                                                        color= if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
+                                                        color = if (place.currLoyalityPoints.toFloat() == place.requiredLoyalityPoints.toFloat()) Color.Green else Color.Blue,
                                                         //                                                        if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() > 0.9f) Color.Green
                                                         //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.2f) Color.Red
                                                         //                                                        else if (place.currLoyalityPoints.toFloat() / place.requiredLoyalityPoints.toFloat() < 0.5f) Color.Yellow
@@ -370,8 +416,9 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                                     )
                                                 }
                                                 Column() {
-                                                    Button(onClick = {
-                                                    }, shape = RoundedCornerShape(10),
+                                                    Button(
+                                                        onClick = {
+                                                        }, shape = RoundedCornerShape(10),
                                                         modifier = Modifier
                                                             .width(70.dp)
                                                             .height(50.dp)
@@ -407,5 +454,5 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
         }
 
     }
-    Spacer(modifier = modifier.height(60.dp))
+    Spacer(modifier = modifier.height(60.dp))}
 }
