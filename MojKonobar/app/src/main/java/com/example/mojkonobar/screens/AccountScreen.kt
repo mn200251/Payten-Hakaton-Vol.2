@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -78,6 +79,30 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
     val letterSizePoeni=12.sp;
 
     LazyColumn (modifier= modifier.fillMaxHeight(0.9f)) {
+        item {
+            Row (modifier = Modifier.fillMaxWidth().padding(top = 30.dp, bottom = 10.dp)){
+                Text(text = "", modifier = Modifier.weight(0.3f))
+                Image(
+                    painter = painterResource(id = R.drawable.hakatonwiner),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .requiredHeight(150.dp)
+                        .requiredWidth(150.dp)
+                        //.size(150.dp)
+                        .background(Color.Transparent)
+                        .weight(0.4f)
+                )
+                Text(text = "", modifier = Modifier.weight(0.3f))
+            }
+        }
+        item {
+            Row (modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)){
+                Text(text = "", modifier = Modifier.weight(0.3f))
+                Text(text = "User Name", modifier = Modifier.weight(0.4f),
+                    fontSize = 30.sp, textAlign = TextAlign.Center)
+                Text(text = "", modifier = Modifier.weight(0.3f))
+            }
+        }
         itemsIndexed(items = places) { index, place ->
             Card() {
                 Column() {
