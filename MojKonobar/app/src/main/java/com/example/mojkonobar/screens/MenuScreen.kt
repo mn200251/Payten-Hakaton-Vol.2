@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -58,25 +59,28 @@ fun MenuScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifier 
         TO DO: Retrieve categories for current place from database.
 
          */
-        Column(modifier=Modifier.fillMaxWidth()) {
 
 
-        UpdateMenuScreen(onAddCategory = {
+
+
+
+        UpdateMenuScreen(
+            onAddCategory = {
 //            intent = Intent(this, AddCategoryActivity::class.java)
 //            startActivity(intent)
-        },
+            },
             categories = Category.getFakeCategories(),
             onClick = {
 //                intent = Intent(this, ItemsActivity::class.java)
 //               startActivity(intent)
-      //          (this.applicationContext as App).category = it
-                       viewModel.changeCategory(it.id)
-                      viewModel.changeScreen(5)
-            }, modifier = Modifier.fillMaxSize()
+                //          (this.applicationContext as App).category = it
+                viewModel.changeCategory(it.id)
+                if(it.id==4){viewModel.changeScreen(6)}else{
+                    viewModel.changeCategory(it.id)
+                viewModel.changeScreen(5)}
+            }, modifier = Modifier.fillMaxHeight()
         )
-            Button(onClick = { /*TODO*/ }) {
-        Text(text = "Order")}
-    }}}
+    }}
 
 
 
@@ -89,34 +93,46 @@ fun UpdateMenuScreen(
 ) {
     Column {
 
-    Box(modifier = Modifier.weight(0.9f)){
+    Row(modifier = Modifier.weight(0.9f)){
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(5.dp),
         modifier = modifier
     ) {val imageModifier = Modifier
-        .requiredHeight(220.dp)
-        .requiredWidth(170.dp)
+        .fillMaxWidth()
+
         //.size(150.dp)
         .background(Color.Transparent)
+
         item {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier.clickable { onAddCategory() }
+                modifier = modifier.clickable { onAddCategory() }.fillMaxWidth().padding(horizontal =20.dp)
             ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+
+                    Row(){
+                        Text(text = places[4].location,fontSize = 26.sp )}
+                Row {
+
+
                 Image(
-                    painter = painterResource(id = places[0].imageLink),
+                    painter = painterResource(id = places[4].imageLink),
                     contentDescription = null,
                     modifier = imageModifier
-                )
-                Text(text = "Richard Gyros", fontSize = 26.sp)
+                )}
+                    Row(){
+                        Text(text = places[4].description,fontSize = 14.sp )}
+
                 //Text(text = "Richard", style = MaterialTheme.typography.labelLarge)
-            }
+            }}
         }
         items(categories) {
-            CategoryButton(category = it, onClick = { onClick(it) }, modifier = Modifier.fillMaxWidth())
+            CategoryButton(category = it, onClick = { onClick(it) }, modifier = Modifier.fillMaxWidth().padding(horizontal =20.dp))
         }
     }};
-    Box(modifier = Modifier.weight(0.1f)){ Button(onClick = { /*TODO*/ }) {
+    Row(modifier = Modifier.weight(0.1f)){ Button(onClick = { /*TODO*/ }) {
         Text(text = "Order")}}
     }
 }
@@ -132,10 +148,10 @@ fun CategoryButton(
         modifier = modifier.clickable { onClick() }
     ) {
         Icon(painter = painterResource(id = icons[category.icon]!!), contentDescription = category.name, modifier = Modifier
-            .size(75.dp)
+            .size(65.dp)
             .fillMaxHeight()
             .padding(5.dp))
-        Text(text = category.name, style = MaterialTheme.typography.labelMedium)
+        Text(text = category.name, fontSize = 22.sp)
     }
 }
 
@@ -150,7 +166,7 @@ class Category(
         @Composable
         public fun getCategoryIcons(): Map<String, Int> {
             return mapOf("drink" to R.drawable.drink, "food" to R.drawable.food,
-                "softdrink" to R.drawable.softdrink, "dessert" to R.drawable.dessert)
+                "softdrink" to R.drawable.softdrink, "dessert" to R.drawable.dessert,"check" to R.drawable.check)
         }
 
         @Composable
@@ -159,8 +175,10 @@ class Category(
                 Category(id = 0, placeId = 0, name = "Drinks", icon = "drink"),
                 Category(id = 1, placeId = 0, name = "Soft Drinks", icon = "softdrink"),
                 Category(id = 2, placeId = 0, name = "Food", icon = "food"),
-                Category(id = 3, placeId = 0, name = "Dessert", icon = "dessert")
-            )
+                Category(id = 3, placeId = 0, name = "Dessert", icon = "dessert"),
+                Category(id = 4, placeId = 0, name = "Order", icon = "check"),
+
+                )
         }
     }
 }

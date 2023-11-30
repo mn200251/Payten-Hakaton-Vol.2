@@ -22,6 +22,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -79,7 +80,6 @@ fun ItemsScreen(
     onEdit: (Item) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
 
     LazyColumn(
         modifier = modifier,
@@ -140,6 +140,17 @@ fun ItemButton(item: Item, onEdit: () -> Unit, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.width(5.dp))
                 Icon(imageVector = Icons.Default.Add,
                     contentDescription = "Edit",
+                    modifier = Modifier.clickable { onEdit() }
+                )
+            }
+            Row {
+
+
+
+                Text(text = "Add note")
+                Spacer(modifier = Modifier.width(5.dp))
+                Icon(imageVector = Icons.Default.NoteAlt,
+                    contentDescription = "Note",
                     modifier = Modifier.clickable { onEdit() }
                 )
             }
