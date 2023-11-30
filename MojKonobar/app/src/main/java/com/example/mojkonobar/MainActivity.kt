@@ -1,8 +1,10 @@
 package com.example.mojkonobar
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -31,6 +33,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mojkonobar.screens.HomeScreen
 import com.example.mojkonobar.screens.ItemsActivity
@@ -117,8 +121,14 @@ fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 
                         selected = false ,
                         onClick = {
-
-                            vm.changeScreen(2)
+                            val REQUEST_IMAGE_CAPTURE = 1
+                            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            try {
+                                startActivityForResult(mainActivity, takePictureIntent, REQUEST_IMAGE_CAPTURE, null)
+                            } catch (e: ActivityNotFoundException) {
+                                // display error state to the user
+                            }
+                            // vm.changeScreen(2)
                         },
                         icon = {
                             Icon(
@@ -133,7 +143,6 @@ fun MojKonobar(mainActivity: MainActivity, viewModel:MojKonobarViewModel)
 
                         selected = false ,
                         onClick = {
-
                             vm.changeScreen(3)
                         },
                         //startActivity(Intent(this@MainActivity,RegisterScreen::class.java)) },
