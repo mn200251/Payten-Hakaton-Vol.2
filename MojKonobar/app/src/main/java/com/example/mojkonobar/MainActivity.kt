@@ -1,7 +1,6 @@
 package com.example.mojkonobar
 
 import android.os.Bundle
-import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +26,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MojKonobar(this)
-//                    val simpleProgressBar = findViewById<ProgressBar>(com.example.mojkonobar.R.id.simpleProgressBar)
+//                    val simpleProgressBar: ProgressBar = findViewById(R.id.progressBar)
+//                    simpleProgressBar.visibility = View.VISIBLE
 //                    simpleProgressBar.progress = 50
 
                 }
