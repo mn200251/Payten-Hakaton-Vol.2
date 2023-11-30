@@ -1,6 +1,7 @@
 package com.example.mojkonobar.screens
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -133,7 +134,20 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                         Column {
                             Button(
                                 onClick = {
-                                    if (rewards == 3 || rewards == 4) {
+                                    Log.d(rewards.toString(), "")
+                                    if (rewards == 5) {
+                                        rewards = 7
+                                    }
+                                    else if (rewards == 7) {
+                                        rewards = 5
+                                    }
+                                    else if (rewards == 6) {
+                                        rewards = 8
+                                    }
+                                    else if (rewards == 8) {
+                                        rewards = 6
+                                    }
+                                    else if (rewards == 3 || rewards == 4) {
                                         if (place.location == "KST") {
                                             activated = 1
                                             rewards = 5
@@ -447,6 +461,12 @@ fun AccountScreen(viewModel: MojKonobarViewModel = viewModel(), modifier: Modifi
                                             }
                                         }
                                     }
+                                }
+                                else if (rewards == 7) {
+                                    Text(text = "Get free tickets for best parties")
+                                }
+                                else if (rewards == 8) {
+                                    Text(text = "Come and get a free bier")
                                 }
                             }
                         }
