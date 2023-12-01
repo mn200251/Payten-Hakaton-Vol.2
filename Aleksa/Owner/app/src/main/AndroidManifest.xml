@@ -13,9 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Owner"
         tools:targetApi="31">
-        <receiver android:name=".PaytenReceiver" android:exported="true">
+        <receiver android:name=".activities.worker.PaytenReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="paytenreceive"></action>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".activities.admin.PaytenQRReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="paytenreceiveqr"></action>
             </intent-filter>
         </receiver>
         <activity android:name="com.example.owner.statistics.StatisticsActivity"

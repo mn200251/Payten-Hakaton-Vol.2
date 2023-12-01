@@ -10,14 +10,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.owner.App
 import com.example.owner.models.Order
 import com.example.owner.ui.OrderItemsScreen
 import com.example.owner.ui.getDate
-import com.example.owner.ui.getPaytenRequestJson
+import com.example.owner.ui.getPaytenSaleRequestJson
 import com.example.owner.ui.theme.OwnerTheme
 import com.example.owner.ui.toRSD
 
@@ -41,7 +40,7 @@ class OrderItemsActivity : ComponentActivity() {
                             intent.setPackage("com.payten.paytenapos")
                             intent.putExtra(
                                 "ecrJson",
-                                getPaytenRequestJson(
+                                getPaytenSaleRequestJson(
                                     toRSD(order.price),
                                     toRSD(order.tip ?: 0.0))
                                 )

@@ -1,6 +1,8 @@
 package com.example.owner.ui
 
+import android.graphics.Bitmap
 import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.owner.R
@@ -375,6 +380,43 @@ fun WorkerRankingScreen(modifier: Modifier = Modifier) {
             WorkerStatisticCard(stats = it, award = award, focus = focusValue, modifier = Modifier
                 .fillMaxWidth()
                 .padding(5.dp))
+        }
+    }
+}
+
+
+@Composable
+fun GetQRCodeScreen(onPrint: (Bitmap) -> Unit, modifier: Modifier = Modifier) {
+    val buttonStyle = MaterialTheme.typography.labelMedium
+    var input: String by rememberSaveable {
+        mutableStateOf("")
+    }
+    var bitmap: Bitmap by rememberSaveable {
+        mutableStateOf(Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888))
+    }
+    LazyColumn(horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier) {
+        item {
+            Text("Enter table ID:")
+        }
+        item {
+            TextField(value = input, onValueChange = {input = it}, shape = MaterialTheme.shapes.small)
+        }
+        item {
+            Button(onClick = {
+                bitmap = generateQRBitmap(input, 100, 100)
+            }, modifier = Modifier.padding(10.dp)) {
+                Text("Generate QR code", style = buttonStyle)
+            }
+        }
+        item {
+            Image(bitmap = bitmap.asImageBitmap(), contentDescription = "Generated QR Code",
+                modifier = Modifier.size(200.dp))
+        }
+        item {
+            Button(onClick = {onPrint(bitmap)}) {
+                Text("Print", style = buttonStyle)
+            }
         }
     }
 }

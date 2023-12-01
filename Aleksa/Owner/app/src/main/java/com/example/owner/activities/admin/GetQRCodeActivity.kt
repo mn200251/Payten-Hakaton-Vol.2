@@ -1,5 +1,6 @@
 package com.example.owner.activities.admin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,7 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.owner.ui.GetQRCodeScreen
+import com.example.owner.ui.bitmapToBase64
+import com.example.owner.ui.getPaytenPrintRequestJson
+import com.example.owner.ui.getPaytenSaleRequestJson
 import com.example.owner.ui.theme.OwnerTheme
+import com.example.owner.ui.toRSD
 
 class GetQRCodeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +34,19 @@ class GetQRCodeActivity : ComponentActivity() {
                     the place id + table id, so users can scan the code
                     to order from the menu
                      */
-                    Text("TO DO")
+                    GetQRCodeScreen(onPrint = {
+                        val json = getPaytenPrintRequestJson(bitmapToBase64(it))
+                        intent = Intent("com.payten.ecr.action")
+                        intent.setPackage("com.payten.paytenapos")
+                        intent.putExtra(
+                            "ecrJson",
+                            json
+                        )
+                        intent.putExtra("senderIntentFilter", "paytenreceiveqr")
+                        intent.putExtra("senderPackage", "com.example.owner.activities.admin")
+                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+                        sendBroadcast(intent)
+                    }, modifier = Modifier.fillMaxSize())
                 }
             }
         }
