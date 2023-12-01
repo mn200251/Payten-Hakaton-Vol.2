@@ -64,7 +64,7 @@ class Order(
                 orderId =  0,
                 note = "No salt please",
                 itemId = 0,
-                name = "Margherita",
+                name = "Margarita",
                 price = 3.0,
                 dateOrdered = getDate("2023-11-28 11:59:00"),
                 dateServed = null
@@ -108,7 +108,7 @@ class Order(
                 orderId = 2,
                 note = null,
                 itemId = 0,
-                name = "Margherita",
+                name = "Margarita",
                 price = 3.0,
                 dateOrdered = getDate("2023-11-28 11:10:22"),
                 dateServed = getDate("2023-11-28 11:13:21")
@@ -119,7 +119,7 @@ class Order(
                 orderId = 2,
                 note = null,
                 itemId = 0,
-                name = "Margherita",
+                name = "Margarita",
                 price = 3.0,
                 dateOrdered = getDate("2023-11-28 11:10:22"),
                 dateServed = getDate("2023-11-28 11:13:21")

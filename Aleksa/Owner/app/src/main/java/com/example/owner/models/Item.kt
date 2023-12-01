@@ -20,7 +20,7 @@ class Item(
         @Composable
         public fun getFakeItems(): List<Item> {
             return listOf(
-                Item(id = 0, categoryId = 0, name = "Margherita", description = "The classic cocktail.",
+                Item(id = 0, categoryId = 0, name = "Margarita", description = "The classic cocktail.",
                     price = 3.0, image = R.drawable.margherita, loyaltyPoints = 1),
                 Item(id = 1, categoryId = 0, name = "Mojito", description = "The traditional Cuban punch.",
                     price = 3.5, image = R.drawable.mojito, loyaltyPoints = 2),
