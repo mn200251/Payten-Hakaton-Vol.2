@@ -43,7 +43,7 @@ class GetQRCodeActivity : ComponentActivity() {
                             json
                         )
                         intent.putExtra("senderIntentFilter", "paytenreceiveqr")
-                        intent.putExtra("senderPackage", "com.example.owner.activities.admin")
+                        intent.putExtra("senderPackage", "com.example.owner")
                         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
                         sendBroadcast(intent)
                     }, modifier = Modifier.fillMaxSize())

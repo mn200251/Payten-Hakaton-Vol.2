@@ -112,18 +112,20 @@ private fun nozero(t: Double): String {
 fun getPaytenRequest(req: String): String {
     val length = req.toByteArray().size
     val sha = shaEncode(req)
-    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req
+    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"1\"}," + req
 }
 fun getPaytenSaleRequestJson(base: Double, tip: Double): String {
     //var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"total\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
-    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"cashier\":\"worker0\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}"
+    var req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"cashier\":\"worker0\"},\"amounts\":{\"base\":%s,\"tip\":%s,\"currencyCode\":\"RSD\"},\"options\":{\"print\":true}}}"
     req = String.format(req, nozero(base), nozero(tip)) + "}"
 
     //req = "\"request\":{\"financial\":{\"transaction\":\"sale\",\"id\":{\"ecr\":\"${ecr++}\"},\"amounts\":{\"base\":1.6,\"tip\":2.4,\"total\":10,\"currencyCode\":\"RSD\"},\"options\":{\"print\":false}}}}"
+    /*
     val length = req.toByteArray().size
     val sha = shaEncode(req)
 
-    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req
+    return "{\"header\":{\"length\":${length},\"hash\":\"" + sha + "\",\"version\":\"01\"}," + req*/
+    return getPaytenRequest(req)
 }
 fun getPaytenPrintRequestJson(data: String): String {
     var req = "\"request\":{\"command\":{\"printer\":{\"type\":\"QR\",\"data\":\"%s\"}}}"

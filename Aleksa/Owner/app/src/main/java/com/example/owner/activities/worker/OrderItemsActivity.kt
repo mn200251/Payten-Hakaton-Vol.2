@@ -45,7 +45,7 @@ class OrderItemsActivity : ComponentActivity() {
                                     toRSD(order.tip ?: 0.0))
                                 )
                             intent.putExtra("senderIntentFilter", "paytenreceive")
-                            intent.putExtra("senderPackage", "com.example.owner.activities.worker")
+                            intent.putExtra("senderPackage", "com.example.owner")
                             intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
                             sendBroadcast(intent)
                         }
